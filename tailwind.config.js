@@ -15,6 +15,9 @@ export default {
                     '@apply bg-green-500 text-white rounded-full font-bold px-4 py-2 hover:bg-green-400 transition duration-150':
                         '',
                 },
+                '.error-red': {
+                    '@apply text-red-500 text-xs': '',
+                },
             });
         },
     ],
