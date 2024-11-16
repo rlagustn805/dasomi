@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface Props {
     type?: string;
@@ -7,19 +7,22 @@ interface Props {
     placeholder?: string;
 }
 
-export default function BaseInput({
-    type = 'text',
-    value,
-    onChange,
-    placeholder,
-}: Props) {
-    return (
-        <input
-            className="border-2 border-black rounded-lg px-2 py-1"
-            type={type}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-        />
-    );
-}
+const BaseInput = forwardRef<HTMLInputElement, Props>(
+    function BaseInputComponent(
+        { type = 'text', value, onChange, placeholder },
+        ref
+    ) {
+        return (
+            <input
+                ref={ref} // ref 전달
+                className="border-2 border-black rounded-lg px-2 py-1"
+                type={type}
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+            />
+        );
+    }
+);
+
+export default BaseInput;

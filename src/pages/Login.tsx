@@ -56,23 +56,33 @@ export default function Login() {
                     rules={{ required: '비밀번호를 입력해주세요.' }}
                     render={({ field, fieldState }) => (
                         <>
-                            <BaseInput
-                                {...field}
-                                type={showPassword ? 'text' : 'password'}
-                                placeholder="비밀번호"
-                            />
+                            <div className="relative">
+                                <BaseInput
+                                    {...field}
+                                    type={showPassword ? 'text' : 'password'}
+                                    placeholder="비밀번호"
+                                />
+                                <div
+                                    className="absolute top-[0.57rem] right-3 cursor-pointer"
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
+                                >
+                                    {showPassword ? (
+                                        <IoLockOpen />
+                                    ) : (
+                                        <IoLockClosedSharp />
+                                    )}
+                                </div>
+                            </div>
+
                             <p className="error-red">
                                 {fieldState.error?.message}
                             </p>
                         </>
                     )}
                 ></Controller>
-                <div
-                    className="absolute top-[3.55rem] right-3 cursor-pointer"
-                    onClick={() => setShowPassword(!showPassword)}
-                >
-                    {showPassword ? <IoLockOpen /> : <IoLockClosedSharp />}
-                </div>
+
                 <GreenButton>로그인</GreenButton>
                 <div>
                     <p className="text-xs float-right cursor-pointer hover:underline">
