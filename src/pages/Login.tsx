@@ -5,6 +5,7 @@ import { api } from '../services/api';
 import axios from 'axios';
 import { useState } from 'react';
 import { IoLockClosedSharp, IoLockOpen } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 interface FormValues {
     username: string;
@@ -83,7 +84,7 @@ export default function Login() {
                     )}
                 ></Controller>
 
-                <GreenButton>로그인</GreenButton>
+                <GreenButton type="submit">로그인</GreenButton>
                 <div>
                     <p className="text-xs float-right cursor-pointer hover:underline">
                         ID / PW 찾기
@@ -92,9 +93,11 @@ export default function Login() {
                 {error && <p className="error-red text-center">{error}</p>}
                 <div className="text-center">
                     <p className="opacity-50">계정이 없으신가요?</p>
-                    <p className="text-sm cursor-pointer hover:underline">
-                        회원가입
-                    </p>
+                    <Link to={'/register'}>
+                        <p className="text-sm cursor-pointer hover:underline">
+                            회원가입
+                        </p>
+                    </Link>
                 </div>
             </div>
         </form>

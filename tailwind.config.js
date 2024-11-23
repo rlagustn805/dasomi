@@ -12,11 +12,14 @@ export default {
                         '',
                 },
                 '.green-btn': {
-                    '@apply bg-green-500 text-white rounded-full font-bold px-4 py-2 hover:bg-green-400 transition duration-150':
+                    '@apply bg-green-500 text-white rounded-full font-bold px-4 py-2 hover:bg-green-400 transition duration-150 disabled:bg-gray-300':
                         '',
                 },
                 '.error-red': {
                     '@apply text-red-500 text-xs': '',
+                },
+                '.success-green': {
+                    '@apply text-green-500 text-xs': '',
                 },
             });
         },

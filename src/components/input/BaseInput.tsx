@@ -5,11 +5,22 @@ interface Props {
     value?: string | number;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
+    maxLength?: number;
+    size?: number;
+    readonly?: boolean;
 }
 
 const BaseInput = forwardRef<HTMLInputElement, Props>(
     function BaseInputComponent(
-        { type = 'text', value, onChange, placeholder },
+        {
+            type = 'text',
+            value,
+            onChange,
+            placeholder,
+            maxLength,
+            size,
+            readonly,
+        },
         ref
     ) {
         return (
@@ -20,6 +31,9 @@ const BaseInput = forwardRef<HTMLInputElement, Props>(
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
+                maxLength={maxLength}
+                size={size}
+                readOnly={readonly}
             />
         );
     }
