@@ -31,6 +31,12 @@ export default function Login() {
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="h-full flex flex-col items-center justify-center gap-3"
+            onKeyDown={(e) => {
+                if (e.key === 'enter') {
+                    e.preventDefault();
+                    handleSubmit(onSubmit)();
+                }
+            }}
         >
             <p className="text-2xl">로그인</p>
             <div className="flex flex-col gap-3 relative">
@@ -83,14 +89,16 @@ export default function Login() {
                         </>
                     )}
                 ></Controller>
+                {error && <p className="error-red text-center">{error}</p>}
 
                 <GreenButton type="submit">로그인</GreenButton>
                 <div>
-                    <p className="text-xs float-right cursor-pointer hover:underline">
-                        ID / PW 찾기
-                    </p>
+                    <Link to={'/forgot'}>
+                        <p className="text-xs float-right cursor-pointer hover:underline">
+                            ID / PW 찾기
+                        </p>
+                    </Link>
                 </div>
-                {error && <p className="error-red text-center">{error}</p>}
                 <div className="text-center">
                     <p className="opacity-50">계정이 없으신가요?</p>
                     <Link to={'/register'}>

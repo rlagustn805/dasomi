@@ -8,6 +8,7 @@ interface Props {
     maxLength?: number;
     size?: number;
     readonly?: boolean;
+    name?: string;
 }
 
 const BaseInput = forwardRef<HTMLInputElement, Props>(
@@ -20,6 +21,7 @@ const BaseInput = forwardRef<HTMLInputElement, Props>(
             maxLength,
             size,
             readonly,
+            name,
         },
         ref
     ) {
@@ -34,6 +36,7 @@ const BaseInput = forwardRef<HTMLInputElement, Props>(
                 maxLength={maxLength}
                 size={size}
                 readOnly={readonly}
+                name={name}
             />
         );
     }
