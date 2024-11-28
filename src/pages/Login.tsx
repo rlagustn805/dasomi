@@ -5,7 +5,8 @@ import { api } from '../services/api';
 import axios from 'axios';
 import { useState } from 'react';
 import { IoLockClosedSharp, IoLockOpen } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 interface FormValues {
     username: string;
@@ -16,10 +17,16 @@ export default function Login() {
     const [error, setError] = useState<string>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const { control, handleSubmit } = useForm<FormValues>();
+    const { handleToken } = useAuth();
+
+    const navigate = useNavigate();
+
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
         try {
             const res = await api.post('api/users/login', data);
+            handleToken(res.data.accessToken);
             setError('');
+            navigate('/');
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data.message);
