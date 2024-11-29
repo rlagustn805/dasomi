@@ -15,25 +15,34 @@ import Forgot from './pages/Forgot';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
+import MyProfile from './pages/myProfile';
 
-// FAB 버튼
+// useQuery
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient();
 
 function App() {
     return (
-        <AuthProvider>
-            <div className="flex flex-col h-full px-4 md:px-14 lg:px-28 xl:px-44 2xl:px-72">
-                <Header />
-                <div className="flex-1 pt-[70px] mb-10">
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="forgot" element={<Forgot />}></Route>
-                    </Routes>
+        <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+                <div className="flex flex-col h-full px-4 md:px-14 lg:px-28 xl:px-44 2xl:px-72">
+                    <Header />
+                    <div className="flex-1 pt-[70px] mb-10">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="forgot" element={<Forgot />}></Route>
+                            <Route
+                                path="/profile"
+                                element={<MyProfile />}
+                            ></Route>
+                        </Routes>
+                    </div>
+                    <Footer />
                 </div>
-                <Footer />
-            </div>
-        </AuthProvider>
+            </AuthProvider>
+        </QueryClientProvider>
     );
 }
 
