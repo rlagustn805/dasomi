@@ -55,8 +55,11 @@ export default function GetMyProfile() {
             </div>
 
             <div className="flex gap-2">
-                {myInfo.map((info) => (
-                    <div className="flex-1 flex flex-col gap-1 bg-white bg-opacity-35 rounded-lg p-2">
+                {myInfo.map((info, index) => (
+                    <div
+                        key={index}
+                        className="flex-1 flex flex-col gap-1 bg-white bg-opacity-35 rounded-lg p-2"
+                    >
                         <span>{info.label}</span>
                         <span className="text-sm">{info.value}</span>
                     </div>

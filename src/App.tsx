@@ -12,13 +12,14 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Forgot from './pages/Forgot';
+import MyProfile from './pages/MyProfile';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
-import MyProfile from './pages/myProfile';
 
 // useQuery
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 const queryClient = new QueryClient();
 
 function App() {
