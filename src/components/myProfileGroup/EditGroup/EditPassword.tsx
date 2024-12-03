@@ -57,7 +57,7 @@ export default function EditPassword() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="p-2 inline-flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg"
+            className="p-2 flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg"
         >
             <p>비밀번호 변경</p>
             <Controller
@@ -73,7 +73,7 @@ export default function EditPassword() {
                             type={showPassword ? 'text' : 'password'}
                         />
                         <div
-                            className="absolute top-2 right-2"
+                            className="absolute top-2 right-2 cursor-pointer"
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? (

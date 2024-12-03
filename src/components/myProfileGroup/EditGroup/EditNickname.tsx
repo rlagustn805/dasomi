@@ -92,7 +92,7 @@ export default function EditNickname() {
 
     return (
         <form
-            className='"p-2 inline-flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg'
+            className="p-2 flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg"
             onSubmit={handleSubmit(onSubmit)}
         >
             <p>닉네임 변경</p>

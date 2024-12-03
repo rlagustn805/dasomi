@@ -28,7 +28,7 @@ const BaseInput = forwardRef<HTMLInputElement, Props>(
         return (
             <input
                 ref={ref} // ref 전달
-                className="border-2 border-black rounded-lg px-2 py-1"
+                className="border-2 border-black rounded-lg px-2 py-1 w-full"
                 type={type}
                 value={value}
                 onChange={onChange}
