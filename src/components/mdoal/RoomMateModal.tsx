@@ -1,10 +1,13 @@
 import ReactModal from 'react-modal';
 import BaseModal from './BaseModal';
 import CreateMyRoomMate from '../myRoomMateGroup/CreateMyRoomMate';
+import { RoomMateData } from '../myRoomMateGroup/CreateMyRoomMate';
 
 interface RoomMateModalProps {
     modalOpen: boolean;
     setModalOpen: (isOpen: boolean) => void;
+    isEdit?: boolean;
+    selectedRoom?: RoomMateData;
 }
 
 const roomMateModalStyles: ReactModal.Styles = {
@@ -33,6 +36,8 @@ const roomMateModalStyles: ReactModal.Styles = {
 export default function RoomMateModal({
     modalOpen,
     setModalOpen,
+    isEdit,
+    selectedRoom,
 }: RoomMateModalProps) {
     return (
         <BaseModal
@@ -40,7 +45,11 @@ export default function RoomMateModal({
             onRequestClose={() => setModalOpen(false)}
             style={roomMateModalStyles}
         >
-            <CreateMyRoomMate />
+            <CreateMyRoomMate
+                isEdit={isEdit}
+                selectedRoom={selectedRoom}
+                setModalOpen={setModalOpen}
+            />
         </BaseModal>
     );
 }

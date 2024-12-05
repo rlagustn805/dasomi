@@ -1,25 +1,36 @@
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import SelectBox from '../select/SelectBox';
 import { dormitoryArr } from '../utils/array';
-import { useState } from 'react';
 import Toggle from '../select/Toggle';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import EdgeButton from '../button/EdgeButton';
 import { api } from '../../services/api';
 import axios from 'axios';
+import Loading from '../Loading';
 
-interface RoomMateData {
+export interface RoomMateData {
     dormitory: string;
     person_room: string;
-    friendly: boolean;
-    indoor_eating: boolean;
+    friendly: number;
+    indoor_eating: number;
     cleanliness: string;
-    sleeping_habits: boolean;
-    smoking: boolean;
+    sleeping_habits: number;
+    smoking: number;
     notes: string;
+    room_id?: number;
 }
 
-export default function CreateMyRoomMate() {
+export interface RoomMateProps {
+    isEdit?: boolean;
+    selectedRoom: RoomMateData | undefined;
+    setModalOpen: (isOpen: boolean) => void;
+}
+
+export default function CreateMyRoomMate({
+    isEdit = false,
+    selectedRoom,
+    setModalOpen,
+}: RoomMateProps) {
     const {
         getValues,
         control,
@@ -27,21 +38,23 @@ export default function CreateMyRoomMate() {
         handleSubmit,
     } = useForm<RoomMateData>({
         mode: 'onChange',
-        defaultValues: {
+        defaultValues: selectedRoom || {
             dormitory: '',
             person_room: '2',
-            friendly: true,
-            indoor_eating: true,
+            friendly: 1,
+            indoor_eating: 1,
             cleanliness: 'medium',
-            sleeping_habits: true,
-            smoking: false,
+            sleeping_habits: 1,
+            smoking: 0,
+            notes: '',
         },
     });
 
     const dormitory = useWatch({ name: 'dormitory', control });
-
     const createRoomMate = async (data: RoomMateData) => {
-        const res = await api.post('/api/roommate/me', data);
+        const res = isEdit
+            ? await api.put('/api/roommate/me', data)
+            : await api.post('/api/roommate/me', data);
         return res.data;
     };
 
@@ -51,7 +64,8 @@ export default function CreateMyRoomMate() {
         mutationFn: createRoomMate,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['myRoomMate'] });
-            alert('등록되었습니다.'); //alert 추후 수정
+            alert(isEdit ? '수정되었습니다.' : '등록되었습니다.'); //alert 추후 수정
+            setModalOpen(false);
         },
 
         onError: (err) => {
@@ -107,8 +121,8 @@ export default function CreateMyRoomMate() {
                         <p>룸메님!</p>
                         <Toggle
                             options={[
-                                { label: '친해져요', value: true },
-                                { label: '갠플해요', value: false },
+                                { label: '친해져요', value: 1 },
+                                { label: '갠플해요', value: 0 },
                             ]}
                             selectedValue={field.value} // Controller에서 관리되는 값
                             onChange={field.onChange} // Controller의 onChange 사용
@@ -124,8 +138,8 @@ export default function CreateMyRoomMate() {
                         <p>실내 취식</p>
                         <Toggle
                             options={[
-                                { label: '가능', value: true },
-                                { label: '불가능', value: false },
+                                { label: '가능', value: 1 },
+                                { label: '불가능', value: 0 },
                             ]}
                             selectedValue={field.value} // Controller에서 관리되는 값
                             onChange={field.onChange} // Controller의 onChange 사용
@@ -159,8 +173,8 @@ export default function CreateMyRoomMate() {
                         <p>잠버릇</p>
                         <Toggle
                             options={[
-                                { label: '있어요', value: true },
-                                { label: '없어요', value: false },
+                                { label: '있어요', value: 1 },
+                                { label: '없어요', value: 0 },
                             ]}
                             selectedValue={field.value} // Controller에서 관리되는 값
                             onChange={field.onChange} // Controller의 onChange 사용
@@ -176,8 +190,8 @@ export default function CreateMyRoomMate() {
                         <p>흡연</p>
                         <Toggle
                             options={[
-                                { label: '해요', value: true },
-                                { label: '안해요', value: false },
+                                { label: '해요', value: 1 },
+                                { label: '안해요', value: 0 },
                             ]}
                             selectedValue={field.value} // Controller에서 관리되는 값
                             onChange={field.onChange} // Controller의 onChange 사용
@@ -201,9 +215,15 @@ export default function CreateMyRoomMate() {
                     </>
                 )}
             />
-            <EdgeButton type="submit" disabled={!dormitory}>
-                등록하기
-            </EdgeButton>
+            {isPending ? (
+                <EdgeButton>
+                    <Loading />
+                </EdgeButton>
+            ) : (
+                <EdgeButton type="submit" disabled={!dormitory}>
+                    {isEdit ? '수정하기' : '등록하기'}
+                </EdgeButton>
+            )}
         </form>
     );
 }

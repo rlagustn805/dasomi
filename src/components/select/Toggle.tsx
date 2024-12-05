@@ -1,9 +1,9 @@
 import React from 'react';
 
 interface ToggleProps {
-    options: { label: string; value: string | boolean }[];
-    selectedValue: string | boolean;
-    onChange: (value: string | boolean) => void;
+    options: { label: string; value: string | boolean | number }[];
+    selectedValue: string | boolean | number;
+    onChange: (value: string | boolean | number) => void;
     activeClassName?: string;
     inactiveClassName?: string;
 }
