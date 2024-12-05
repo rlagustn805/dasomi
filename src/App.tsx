@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Forgot from './pages/Forgot';
 import MyProfile from './pages/MyProfile';
+import MyRoomMate from './pages/MyRoomMate';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
@@ -37,6 +38,10 @@ function App() {
                             <Route
                                 path="/profile"
                                 element={<MyProfile />}
+                            ></Route>
+                            <Route
+                                path="/roommate"
+                                element={<MyRoomMate />}
                             ></Route>
                         </Routes>
                     </div>

@@ -32,9 +32,12 @@ export default function GetMyProfile() {
         return <div>에러 발생: {error.message}</div>;
     }
 
+    const removeTrailingZero = (str?: string) =>
+        str ? str.replace(/0+$/, '') : 'N/A';
+
     const myInfo = [
-        { label: '성별', value: data?.gender },
-        { label: '평점', value: data?.rating },
+        { label: '성별', value: data?.gender === 'M' ? '남' : '여' },
+        { label: '평점', value: removeTrailingZero(data?.rating) },
         { label: 'MBTI', value: data?.mbti },
     ];
 

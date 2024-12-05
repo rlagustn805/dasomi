@@ -132,3 +132,13 @@ export const studentIdArr: string[] = [
     '16',
     '15',
 ];
+
+export const dormitoryArr: string[] = [
+    '참인재관',
+    '아마레관',
+    '예지관',
+    '세르비레관',
+    '효성관',
+    '성김대건관',
+    '다솜관',
+];

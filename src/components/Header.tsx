@@ -15,10 +15,21 @@ export default function Header() {
         setMenuOpen(!menuOpen);
     };
 
+    const handleMenuClick = (action?: () => void) => {
+        if (action) action();
+        setMenuOpen(false);
+    };
+
     const menuItems = [
-        { text: '로그아웃', onclick: logout },
-        { text: '내 정보 관리', onclick: () => navigate('/profile') },
-        { text: '룸메이트 관리' },
+        { text: '로그아웃', onclick: () => handleMenuClick(logout) },
+        {
+            text: '내 정보 관리',
+            onclick: () => handleMenuClick(() => navigate('/profile')),
+        },
+        {
+            text: '룸메이트 관리',
+            onclick: () => handleMenuClick(() => navigate('/roommate')),
+        },
         { text: '채팅함' },
     ];
 
