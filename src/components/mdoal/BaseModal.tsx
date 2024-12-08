@@ -2,28 +2,28 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import Modal from 'react-modal';
 import RedButton from '../button/RedButton';
+import './BaseRoomMateModal.css';
 
 interface ModalProps {
     children?: React.ReactNode;
     isOpen: boolean;
     onRequestClose: () => void;
-    style: ReactModal.Styles;
 }
 
 export default function BaseModal({
     children,
     isOpen,
     onRequestClose,
-    style,
 }: ModalProps) {
     return (
         <Modal
             isOpen={isOpen}
-            style={style}
+            overlayClassName="modal-overlay"
+            className="modal-content"
             onRequestClose={onRequestClose}
             ariaHideApp={false}
         >
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-10 h-full justify-between">
                 {children}
                 <RedButton onClick={onRequestClose}>닫기</RedButton>
             </div>

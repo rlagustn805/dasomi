@@ -14,6 +14,7 @@ import Register from './pages/Register';
 import Forgot from './pages/Forgot';
 import MyProfile from './pages/MyProfile';
 import MyRoomMate from './pages/MyRoomMate';
+import RoomMateList from './pages/RoomMateList';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
@@ -42,6 +43,10 @@ function App() {
                             <Route
                                 path="/roommate"
                                 element={<MyRoomMate />}
+                            ></Route>
+                            <Route
+                                path="/:dormitory"
+                                element={<RoomMateList />}
                             ></Route>
                         </Routes>
                     </div>

@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 interface Domitorys {
     id: number;
     name: string;
@@ -6,6 +8,8 @@ interface Domitorys {
 }
 
 export default function Domitorys() {
+    const navigate = useNavigate();
+
     const domitorys: Domitorys[] = [
         {
             id: 111,
@@ -59,6 +63,7 @@ export default function Domitorys() {
                     <div
                         key={domitory.id}
                         className="border-2 w-[49%] lg:w-[33%] relative cursor-pointer mb-2 rounded-lg"
+                        onClick={() => navigate(`/${domitory.name}`)}
                     >
                         <picture>
                             <source

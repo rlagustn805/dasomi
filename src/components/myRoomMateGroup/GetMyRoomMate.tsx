@@ -71,71 +71,76 @@ export default function GetMyRoomMate() {
     }
 
     return (
-        <div className="flex flex-col gap-5 bg-gray-100 p-4 rounded-xl lg:flex-row">
-            {data?.map((roomMate, index: number) => (
-                <div
-                    key={index}
-                    className="flex flex-col px-4 py-2 gap-2 flex-1 bg-white rounded-xl shadow-lg justify-between h-full"
-                >
-                    <span className="text-lg border-b-2">
-                        {roomMate.dormitory} {roomMate.person_room}인실
-                    </span>
-                    <span>
-                        룸메님{' '}
-                        {roomMate.friendly === 1 ? '친해져요' : '갠플해요'}
-                    </span>
-                    <span>
-                        실내취식{' '}
-                        {roomMate.indoor_eating === 1 ? '가능' : '불가능'}
-                    </span>
-                    <span>
-                        청결도{' '}
-                        {roomMate.cleanliness === 'low'
-                            ? '하'
-                            : roomMate.cleanliness === 'medium'
-                            ? '중'
-                            : '상'}
-                    </span>
-                    <span>
-                        잠버릇{' '}
-                        {roomMate.sleeping_habits === 1 ? '있어요' : '없어요'}
-                    </span>
-                    <span>
-                        흡연 {roomMate.smoking === 1 ? '해요' : '안해요'}
-                    </span>
-                    <div>
-                        <p>하고 싶은 말</p>
-                        <span className="text-sm">
-                            {roomMate.notes ? roomMate.notes : '없음'}
+        <div>
+            <p className="mb-2">등록한 나의 룸메이트</p>
+            <div className="flex flex-col gap-5 bg-gray-100 p-4 rounded-xl lg:flex-row">
+                {data?.map((roomMate, index: number) => (
+                    <div
+                        key={index}
+                        className="flex flex-col px-4 py-2 gap-2 flex-1 bg-white rounded-xl shadow-lg justify-between h-full"
+                    >
+                        <span className="text-lg border-b-2">
+                            {roomMate.dormitory} {roomMate.person_room}인실
                         </span>
+                        <span>
+                            룸메님{' '}
+                            {roomMate.friendly === 1 ? '친해져요' : '갠플해요'}
+                        </span>
+                        <span>
+                            실내취식{' '}
+                            {roomMate.indoor_eating === 1 ? '가능' : '불가능'}
+                        </span>
+                        <span>
+                            청결도{' '}
+                            {roomMate.cleanliness === 'low'
+                                ? '하'
+                                : roomMate.cleanliness === 'medium'
+                                ? '중'
+                                : '상'}
+                        </span>
+                        <span>
+                            잠버릇{' '}
+                            {roomMate.sleeping_habits === 1
+                                ? '있어요'
+                                : '없어요'}
+                        </span>
+                        <span>
+                            흡연 {roomMate.smoking === 1 ? '해요' : '안해요'}
+                        </span>
+                        <div>
+                            <p>하고 싶은 말</p>
+                            <span className="text-sm">
+                                {roomMate.notes ? roomMate.notes : '없음'}
+                            </span>
+                        </div>
+                        <div className="flex flex-col flex-1 gap-2">
+                            <EdgeButton onClick={() => modalClick(roomMate)}>
+                                수정하기
+                            </EdgeButton>
+                            {isPending ? (
+                                <RedButton>
+                                    <Loading />
+                                </RedButton>
+                            ) : (
+                                <RedButton
+                                    onClick={() =>
+                                        deleteMyRoommate(roomMate.room_id!)
+                                    }
+                                >
+                                    삭제하기
+                                </RedButton>
+                            )}
+                        </div>
                     </div>
-                    <div className="flex flex-col flex-1 gap-2">
-                        <EdgeButton onClick={() => modalClick(roomMate)}>
-                            수정하기
-                        </EdgeButton>
-                        {isPending ? (
-                            <RedButton>
-                                <Loading />
-                            </RedButton>
-                        ) : (
-                            <RedButton
-                                onClick={() =>
-                                    deleteMyRoommate(roomMate.room_id!)
-                                }
-                            >
-                                삭제하기
-                            </RedButton>
-                        )}
-                    </div>
-                </div>
-            ))}
+                ))}
 
-            <RoomMateModal
-                modalOpen={modalOpen}
-                setModalOpen={() => setModalOpen(false)}
-                isEdit={true}
-                selectedRoom={selectedRoom}
-            />
+                <RoomMateModal
+                    modalOpen={modalOpen}
+                    setModalOpen={() => setModalOpen(false)}
+                    isEdit={true}
+                    selectedRoom={selectedRoom}
+                />
+            </div>
         </div>
     );
 }

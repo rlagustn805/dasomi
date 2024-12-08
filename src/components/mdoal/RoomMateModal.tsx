@@ -10,29 +10,6 @@ interface RoomMateModalProps {
     selectedRoom?: RoomMateData;
 }
 
-const roomMateModalStyles: ReactModal.Styles = {
-    overlay: {
-        backgroundColor: ' rgba(0, 0, 0, 0.6)',
-        width: '100%',
-        height: '100vh',
-        zIndex: '10',
-        position: 'fixed',
-        top: '0',
-        left: '0',
-    },
-    content: {
-        width: '80%',
-        height: '80%',
-        zIndex: '11',
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        borderRadius: '10px',
-        backgroundColor: 'rgba(255, 255, 255)',
-    },
-};
-
 export default function RoomMateModal({
     modalOpen,
     setModalOpen,
@@ -43,7 +20,6 @@ export default function RoomMateModal({
         <BaseModal
             isOpen={modalOpen}
             onRequestClose={() => setModalOpen(false)}
-            style={roomMateModalStyles}
         >
             <CreateMyRoomMate
                 isEdit={isEdit}
