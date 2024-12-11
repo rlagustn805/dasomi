@@ -23,7 +23,7 @@ export default function BaseModal({
             onRequestClose={onRequestClose}
             ariaHideApp={false}
         >
-            <div className="flex flex-col gap-10 h-full justify-between">
+            <div className="flex flex-col gap-5 h-full justify-between overflow-y-auto">
                 {children}
                 <RedButton onClick={onRequestClose}>닫기</RedButton>
             </div>

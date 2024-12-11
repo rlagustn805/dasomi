@@ -5,6 +5,10 @@ import { api } from '../../services/api';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { RoomMateData } from '../myRoomMateGroup/CreateMyRoomMate';
+import EdgeButton from '../button/EdgeButton';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import decodeToken from '../utils/decodeToken';
 
 interface RoomMateModalProps {
     modalOpen: boolean;
@@ -15,6 +19,12 @@ interface RoomMateModalProps {
 interface RoomMateDetail extends RoomMateData {
     nickname: string;
     updated_at: string;
+    user_id: number;
+}
+
+interface DecodedInfo {
+    id: number;
+    gender: string;
 }
 
 export default function RoomMateDetailModal({
@@ -23,6 +33,10 @@ export default function RoomMateDetailModal({
     room_id,
 }: RoomMateModalProps) {
     const [roomMateDetails, setRoomMateDetails] = useState<RoomMateDetail>();
+    const [decodedInfo, setDecodedInfo] = useState<DecodedInfo | null>(null);
+
+    const { token } = useAuth();
+    const navigate = useNavigate();
 
     const getRoomMateDetail = async (room_id: number) => {
         try {
@@ -36,6 +50,10 @@ export default function RoomMateDetailModal({
     };
 
     useEffect(() => {
+        setDecodedInfo(decodeToken(token));
+    }, [token]);
+
+    useEffect(() => {
         if (room_id) {
             getRoomMateDetail(room_id);
         }
@@ -47,7 +65,7 @@ export default function RoomMateDetailModal({
             isOpen={modalOpen}
             onRequestClose={() => setModalOpen(false)}
         >
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-5">
                 <div>
                     <p className="text-lg text-center">
                         {roomMateDetails?.nickname}님의 상세 정보
@@ -100,6 +118,19 @@ export default function RoomMateDetailModal({
                         }
                     ></textarea>
                 </div>
+                {token === null ? (
+                    <EdgeButton onClick={() => navigate('/login')}>
+                        로그인
+                    </EdgeButton>
+                ) : decodedInfo &&
+                  roomMateDetails &&
+                  decodedInfo.id === roomMateDetails?.user_id ? (
+                    <EdgeButton onClick={() => navigate('/roommate')}>
+                        수정하기
+                    </EdgeButton>
+                ) : (
+                    <EdgeButton>채팅하기</EdgeButton>
+                )}
             </div>
         </BaseModal>
     );

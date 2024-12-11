@@ -18,7 +18,7 @@
     height: 80%;
     z-index: 11;
     padding: 20px;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 
 /* 기본 width */
