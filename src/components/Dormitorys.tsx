@@ -57,12 +57,12 @@ export default function Domitorys() {
 
     return (
         <>
-            <p className="text-lg">기숙사별 룸메이트 찾기</p>
-            <div className="flex flex-wrap gap-2">
+            <p className="text-lg mb-1">기숙사별 룸메이트 찾기</p>
+            <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
                 {domitorys.map((domitory) => (
                     <div
                         key={domitory.id}
-                        className="w-[48%] h-36 relative md:w-[32.8%] md:h-52"
+                        className="h-36 relative md:h-52"
                         onClick={() => navigate(`/${domitory.name}`)}
                     >
                         <picture>

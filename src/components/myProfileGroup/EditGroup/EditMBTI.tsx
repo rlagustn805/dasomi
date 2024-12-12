@@ -52,7 +52,7 @@ export default function EditMBTI() {
     };
     return (
         <form
-            className="p-2 flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg"
+            className="p-2 flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg justify-between h-full"
             onSubmit={handleSubmit(onSubmit)}
         >
             <p>MBTI 변경</p>

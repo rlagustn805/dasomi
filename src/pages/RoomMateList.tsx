@@ -1,24 +1,25 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../services/api';
 import axios from 'axios';
 import Loading from '../components/Loading';
 import EdgeButton from '../components/button/EdgeButton';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
-import RoomMateDetailModal from '../components/mdoal/RoomMateDetailModal';
 import decodeToken from '../components/utils/decodeToken';
 import { useAuth } from '../hooks/useAuth';
 import RedButton from '../components/button/RedButton';
-import Toggle from '../components/select/Toggle';
+import { RoomMateData } from '../components/myRoomMateGroup/CreateMyRoomMate';
 
-interface RoomMate {
+interface RoomMate extends RoomMateData {
     user_id: number;
     room_id: number;
     nickname: string;
-    person_room: string;
-    dormitory: string;
     gender: string;
+    rating: string;
+    student_id: string;
+    mbti: string;
+    department: string;
 }
 
 interface Filters {
@@ -39,8 +40,6 @@ interface DecodedInfo {
 }
 
 export default function RoomMateList() {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [selectedRoomId, setSelectedRoomId] = useState<number | null>(null);
     const [decodedInfo, setDecodedInfo] = useState<DecodedInfo | null>(null);
     const [filters, setFilters] = useState<Filters>({
         person_room: 'all',
@@ -49,6 +48,7 @@ export default function RoomMateList() {
 
     const { dormitory } = useParams();
     const { token } = useAuth();
+    const navigate = useNavigate();
     const getRoomMates = async (
         page: number,
         person_room: string,
@@ -81,7 +81,7 @@ export default function RoomMateList() {
 
     useEffect(() => {
         setDecodedInfo(decodeToken(token));
-    }, []);
+    }, [token]);
 
     const {
         data,
@@ -124,74 +124,93 @@ export default function RoomMateList() {
         <div>
             <div className="flex flex-col justify-between lg:flex-row lg:items-center">
                 <p className="text-lg">{dormitory}</p>
-                <div className="flex gap-2 text-sm justify-end">
-                    <Toggle
-                        options={[
-                            { label: '전체', value: 'all' },
-                            { label: '2인실', value: '2' },
-                            { label: '4인실', value: '4' },
-                        ]}
-                        selectedValue={filters.person_room}
-                        onChange={(value: string | number | boolean) =>
-                            setFilters((prev) => ({
-                                ...prev,
-                                person_room: value as string,
-                            }))
-                        }
-                    />
-                    <Toggle
-                        options={[
-                            { label: '전체', value: 'all' },
-                            { label: '남자', value: 'M' },
-                            { label: '여자', value: 'F' },
-                        ]}
-                        selectedValue={filters.gender}
-                        onChange={(value: string | number | boolean) =>
-                            setFilters((prev) => ({
-                                ...prev,
-                                gender: value as string,
-                            }))
-                        }
-                    />
-                </div>
             </div>
-
-            <div className="flex flex-wrap">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 bg-gray-100 rounded-xl">
                 {data?.pages.map((page) =>
                     page.data.map((roommate) => (
-                        <div
-                            key={roommate.room_id}
-                            className="w-[50%] md:w-[33.3%] lg:w-[20%]"
-                        >
-                            <div className="flex flex-col gap-2 border border-black shadow-sm rounded-xl p-2 m-2">
-                                <p>
-                                    {roommate.gender === 'M' ? '남자' : '여자'}{' '}
-                                    {roommate.person_room}인실
-                                </p>
-                                <p>{roommate.nickname}님</p>
-                                {decodedInfo &&
-                                decodedInfo?.gender !== roommate.gender ? (
-                                    <RedButton>성별이 달라요</RedButton>
-                                ) : (
+                        <div key={roommate.room_id}>
+                            <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl p-2 m-2">
+                                <div className="bg-green-500 text-white p-2 rounded-xl">
+                                    <p>{` ${roommate.nickname} ⭐${roommate.rating}`}</p>
+                                    <p>{`${roommate.department} ${roommate.student_id}`}</p>
+                                    {roommate.mbti}{' '}
+                                </div>
+                                <div className="flex flex-col gap-2 p-2">
+                                    <p>
+                                        {roommate.gender === 'M'
+                                            ? '남자'
+                                            : '여자'}{' '}
+                                        {roommate.person_room}인실
+                                    </p>
+                                    <div>
+                                        룸메님!{' '}
+                                        {roommate.friendly === 1
+                                            ? '친해져요'
+                                            : '갠플해요'}
+                                    </div>
+
+                                    <p>
+                                        실내취식 :{' '}
+                                        {roommate.indoor_eating === 1
+                                            ? '가능'
+                                            : '불가능'}
+                                    </p>
+                                    <p>
+                                        청결도 :{' '}
+                                        {roommate.cleanliness === 'low'
+                                            ? '하'
+                                            : roommate.cleanliness === 'medium'
+                                            ? '중'
+                                            : '상'}
+                                    </p>
+                                    <p>
+                                        잠버릇 :{' '}
+                                        {roommate.sleeping_habits === 1
+                                            ? '있어요'
+                                            : '없어요'}
+                                    </p>
+                                    <p>
+                                        흡연 :{' '}
+                                        {roommate.smoking === 1
+                                            ? '해요'
+                                            : '안해요'}
+                                    </p>
+                                    <div>
+                                        <p>특이사항</p>
+                                        <textarea
+                                            className="resize-none w-full p-1 text-sm border-black border rounded-lg overflow-auto"
+                                            readOnly
+                                            defaultValue={
+                                                roommate.notes
+                                                    ? roommate.notes
+                                                    : '없음'
+                                            }
+                                        ></textarea>
+                                    </div>
+                                </div>
+
+                                {token === null ? (
                                     <EdgeButton
-                                        onClick={() => {
-                                            setSelectedRoomId(roommate.room_id);
-                                            setModalOpen(true);
-                                        }}
+                                        onClick={() => navigate('/login')}
                                     >
-                                        자세히 보기
+                                        로그인
                                     </EdgeButton>
+                                ) : decodedInfo?.id === roommate.user_id ? (
+                                    <EdgeButton
+                                        onClick={() => navigate('/roommate')}
+                                    >
+                                        수정하기
+                                    </EdgeButton>
+                                ) : decodedInfo?.gender === roommate.gender ? (
+                                    <EdgeButton>채팅하기</EdgeButton>
+                                ) : (
+                                    <RedButton>성별이 달라요</RedButton>
                                 )}
                             </div>
                         </div>
                     ))
                 )}
             </div>
-            <RoomMateDetailModal
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpen}
-                room_id={selectedRoomId}
-            />
             {hasNextPage && <h1 ref={ref}>Load More</h1>}
         </div>
     );

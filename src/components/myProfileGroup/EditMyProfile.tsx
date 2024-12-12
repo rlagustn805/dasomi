@@ -5,17 +5,17 @@ import EditPassword from './EditGroup/EditPassword';
 
 export default function EditMyProfile() {
     return (
-        <div className="flex flex-col gap-4 mt-10 md:flex-row">
-            <div className="flex-1">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 mt-14">
+            <div className="">
                 <EditPassword />
             </div>
-            <div className="flex-1">
+            <div className="">
                 <EditNickname />
             </div>
-            <div className="flex-1">
+            <div className="">
                 <EditMBTI />
             </div>
-            <div className="flex-1">
+            <div className="">
                 <EditDepartment />
             </div>
         </div>

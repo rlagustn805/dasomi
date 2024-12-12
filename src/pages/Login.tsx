@@ -37,7 +37,7 @@ export default function Login() {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="h-full flex flex-col items-center justify-center gap-3"
+            className="h-full flex flex-col items-center justify-center gap-3 border-black border rounded-xl"
             onKeyDown={(e) => {
                 if (e.key === 'enter') {
                     e.preventDefault();

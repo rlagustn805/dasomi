@@ -18,7 +18,7 @@ export default function Footer() {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-green-500 p-4 mt-16 grid grid-cols-2 text-white">
+        <div className="bg-green-500 p-4 mt-16 grid grid-cols-2 text-white rounded-lg">
             <div className="flex flex-col gap-1">
                 <p
                     className="cursor-pointer hover:underline"
@@ -40,8 +40,9 @@ export default function Footer() {
                 </p>
             </div>
             <div className="grid grid-cols-2 gap-1">
-                {dormitorys.map((dormitory) => (
+                {dormitorys.map((dormitory, index) => (
                     <p
+                        key={index}
                         onClick={() => navigate(`/${dormitory.name}`)}
                         className="cursor-pointer hover:underline"
                     >

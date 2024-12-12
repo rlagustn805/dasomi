@@ -30,7 +30,7 @@ function App() {
             <AuthProvider>
                 <div className="flex flex-col h-full px-4 md:px-14 lg:px-28 xl:px-44 2xl:px-72">
                     <Header />
-                    <div className="flex-1 pt-[70px] mb-10">
+                    <div className="flex-1 pt-[70px] mb-10 mt-5">
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/login" element={<Login />} />

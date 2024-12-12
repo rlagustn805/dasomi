@@ -58,7 +58,7 @@ export default function EditDepartment() {
 
     return (
         <form
-            className="p-2 flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg"
+            className="p-2 flex flex-col shadow-lg gap-2 bg-gray-100 rounded-lg h-full justify-between"
             onSubmit={handleSubmit(onSubmit)}
         >
             <p>학과 변경</p>
