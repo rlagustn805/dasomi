@@ -2,6 +2,9 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { CgProfile } from 'react-icons/cg';
 import { api } from '../../services/api';
 import Loading from '../Loading';
+import { useAuth } from '../../hooks/useAuth';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Profile {
     email: string;
@@ -19,6 +22,15 @@ const getMyProfile = async (): Promise<Profile> => {
 };
 
 export default function GetMyProfile() {
+    const { token } = useAuth();
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!token) {
+            alert('권한이 없습니다.');
+            navigate('/');
+        }
+    }, [token]);
+
     const queryClient = useQueryClient();
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['profile'],

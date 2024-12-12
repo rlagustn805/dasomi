@@ -58,11 +58,11 @@ export default function Domitorys() {
     return (
         <>
             <p className="text-lg">기숙사별 룸메이트 찾기</p>
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap gap-2">
                 {domitorys.map((domitory) => (
                     <div
                         key={domitory.id}
-                        className="border-2 w-[49%] lg:w-[33%] relative cursor-pointer mb-2 rounded-lg"
+                        className="w-[48%] h-36 relative md:w-[32.8%] md:h-52"
                         onClick={() => navigate(`/${domitory.name}`)}
                     >
                         <picture>
@@ -72,11 +72,11 @@ export default function Domitorys() {
                             />
                             <source
                                 srcSet={domitory.jpgSrc}
-                                type="image/jepg"
+                                type="image/jpeg"
                             />
                             <img
                                 src={domitory.jpgSrc}
-                                className="w-full h-full brightness-90 hover:brightness-75 rounded-lg"
+                                className="w-full h-full object-cover brightness-90 hover:brightness-75 rounded-lg cursor-pointer"
                             />
                         </picture>
                         <p className="text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2 text-lg">

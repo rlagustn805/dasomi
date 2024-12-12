@@ -164,13 +164,13 @@ export default function RoomMateList() {
                             className="w-[50%] md:w-[33.3%] lg:w-[20%]"
                         >
                             <div className="flex flex-col gap-2 border border-black shadow-sm rounded-xl p-2 m-2">
-                                <p>{roommate.dormitory}</p>
                                 <p>
                                     {roommate.gender === 'M' ? '남자' : '여자'}{' '}
                                     {roommate.person_room}인실
                                 </p>
                                 <p>{roommate.nickname}님</p>
-                                {decodedInfo?.gender !== roommate.gender ? (
+                                {decodedInfo &&
+                                decodedInfo?.gender !== roommate.gender ? (
                                     <RedButton>성별이 달라요</RedButton>
                                 ) : (
                                     <EdgeButton

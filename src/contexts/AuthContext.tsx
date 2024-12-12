@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextType {
     token: string | null;
@@ -15,6 +16,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.getItem('authToken')
     );
 
+    const navigate = useNavigate();
+
     const handleToken = (newToken: string | null) => {
         setToken(newToken);
 
@@ -25,7 +28,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    const logout = () => handleToken(null);
+    const logout = () => {
+        handleToken(null), navigate('/');
+    };
 
     return (
         <AuthContext.Provider value={{ token, handleToken, logout }}>
