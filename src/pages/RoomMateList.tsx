@@ -10,6 +10,8 @@ import decodeToken from '../components/utils/decodeToken';
 import { useAuth } from '../hooks/useAuth';
 import RedButton from '../components/button/RedButton';
 import { RoomMateData } from '../components/myRoomMateGroup/CreateMyRoomMate';
+import { FilterList } from '../components/FilterList';
+import GreenLoading from '../components/GreenLoading';
 
 interface RoomMate extends RoomMateData {
     user_id: number;
@@ -22,9 +24,13 @@ interface RoomMate extends RoomMateData {
     department: string;
 }
 
-interface Filters {
+export interface Filters {
     person_room: string;
     gender: string;
+    friendly: string | number;
+    indoor_eating: string | number;
+    cleanliness: string;
+    smoking: string | number;
 }
 
 interface RoomMateResponse {
@@ -41,9 +47,14 @@ interface DecodedInfo {
 
 export default function RoomMateList() {
     const [decodedInfo, setDecodedInfo] = useState<DecodedInfo | null>(null);
+    const [totalCount, setTotalCount] = useState<number | null>(null);
     const [filters, setFilters] = useState<Filters>({
         person_room: 'all',
         gender: 'all',
+        friendly: 'all',
+        indoor_eating: 'all',
+        cleanliness: 'all',
+        smoking: 'all',
     });
 
     const { dormitory } = useParams();
@@ -52,7 +63,11 @@ export default function RoomMateList() {
     const getRoomMates = async (
         page: number,
         person_room: string,
-        gender: string
+        gender: string,
+        friendly: string | number,
+        indoor_eating: string | number,
+        cleanliness: string,
+        smoking: string | number
     ): Promise<RoomMateResponse> => {
         const params: Record<string, any> = {
             dormitory: dormitory,
@@ -67,9 +82,26 @@ export default function RoomMateList() {
             params.gender = gender;
         }
 
+        if (friendly !== 'all') {
+            params.friendly = friendly;
+        }
+
+        if (indoor_eating !== 'all') {
+            params.indoor_eating = indoor_eating;
+        }
+
+        if (cleanliness !== 'all') {
+            params.cleanliness = cleanliness;
+        }
+
+        if (smoking !== 'all') {
+            params.smoking = smoking;
+        }
+
         try {
             const res = await api.get('api/roommate', { params });
             console.log(res.data);
+            setTotalCount(res.data.totalCount);
             return res.data;
         } catch (err) {
             if (axios.isAxiosError(err)) {
@@ -94,7 +126,15 @@ export default function RoomMateList() {
     } = useInfiniteQuery({
         queryKey: ['roomMates', dormitory, filters],
         queryFn: ({ pageParam = 1 }) =>
-            getRoomMates(pageParam, filters.person_room, filters.gender),
+            getRoomMates(
+                pageParam,
+                filters.person_room,
+                filters.gender,
+                filters.friendly,
+                filters.indoor_eating,
+                filters.cleanliness,
+                filters.smoking
+            ),
         getNextPageParam: (lastPage) => {
             if (lastPage.currentPage < lastPage.totalPages) {
                 return lastPage.currentPage + 1;
@@ -120,98 +160,124 @@ export default function RoomMateList() {
         return <p>{error.message}</p>;
     }
 
+    const handleFilterChange = (
+        filterKey: keyof Filters,
+        value: string | number | boolean
+    ) => {
+        setFilters((prev) => ({ ...prev, [filterKey]: value }));
+    };
+
+    const hashTagClass =
+        'border-green-500 border p-1 rounded-xl cursor-pointer hover:bg-green-500 hover:text-white duration-200';
+
     return (
         <div>
-            <div className="flex flex-col justify-between lg:flex-row lg:items-center">
-                <p className="text-lg">{dormitory}</p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 bg-gray-100 rounded-xl">
+            <p className="text-lg">
+                {dormitory} {totalCount}개
+            </p>
+            <FilterList filters={filters} onFilterChange={handleFilterChange} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 bg-gray-100 rounded-xl">
                 {data?.pages.map((page) =>
                     page.data.map((roommate) => (
                         <div key={roommate.room_id}>
-                            <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl p-2 m-2">
+                            <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl m-2">
                                 <div className="bg-green-500 text-white p-2 rounded-xl">
-                                    <p>{` ${roommate.nickname} ⭐${roommate.rating}`}</p>
+                                    <div className="flex justify-between">
+                                        <p className="text-lg">
+                                            {roommate.nickname}
+                                        </p>
+                                        <p>⭐{roommate.rating}</p>
+                                    </div>
                                     <p>{`${roommate.department} ${roommate.student_id}`}</p>
-                                    {roommate.mbti}{' '}
+                                    {roommate.mbti}
                                 </div>
-                                <div className="flex flex-col gap-2 p-2">
-                                    <p>
+                                <div className="grid grid-cols-3 gap-2 p-2 text-sm text-center">
+                                    <p className={hashTagClass}>
+                                        #
                                         {roommate.gender === 'M'
                                             ? '남자'
                                             : '여자'}{' '}
                                         {roommate.person_room}인실
                                     </p>
-                                    <div>
-                                        룸메님!{' '}
+                                    <p className={hashTagClass}>
+                                        #
                                         {roommate.friendly === 1
                                             ? '친해져요'
                                             : '갠플해요'}
-                                    </div>
+                                    </p>
 
-                                    <p>
-                                        실내취식 :{' '}
+                                    <p className={hashTagClass}>
+                                        #
                                         {roommate.indoor_eating === 1
-                                            ? '가능'
-                                            : '불가능'}
+                                            ? '실내취식 가능'
+                                            : '실내취식 불가능'}
                                     </p>
-                                    <p>
-                                        청결도 :{' '}
+                                    <p className={hashTagClass}>
+                                        #
                                         {roommate.cleanliness === 'low'
-                                            ? '하'
+                                            ? '덜깔끔이'
                                             : roommate.cleanliness === 'medium'
-                                            ? '중'
-                                            : '상'}
+                                            ? '깔끔이'
+                                            : '왕깔끔이'}
                                     </p>
-                                    <p>
-                                        잠버릇 :{' '}
+                                    <p className={hashTagClass}>
+                                        #잠버릇 {''}
                                         {roommate.sleeping_habits === 1
                                             ? '있어요'
                                             : '없어요'}
                                     </p>
-                                    <p>
-                                        흡연 :{' '}
+                                    <p className={hashTagClass}>
+                                        #흡연{' '}
                                         {roommate.smoking === 1
                                             ? '해요'
                                             : '안해요'}
                                     </p>
-                                    <div>
-                                        <p>특이사항</p>
-                                        <textarea
-                                            className="resize-none w-full p-1 text-sm border-black border rounded-lg overflow-auto"
-                                            readOnly
-                                            defaultValue={
-                                                roommate.notes
-                                                    ? roommate.notes
-                                                    : '없음'
-                                            }
-                                        ></textarea>
-                                    </div>
                                 </div>
-
-                                {token === null ? (
-                                    <EdgeButton
-                                        onClick={() => navigate('/login')}
-                                    >
-                                        로그인
-                                    </EdgeButton>
-                                ) : decodedInfo?.id === roommate.user_id ? (
-                                    <EdgeButton
-                                        onClick={() => navigate('/roommate')}
-                                    >
-                                        수정하기
-                                    </EdgeButton>
-                                ) : decodedInfo?.gender === roommate.gender ? (
-                                    <EdgeButton>채팅하기</EdgeButton>
-                                ) : (
-                                    <RedButton>성별이 달라요</RedButton>
-                                )}
+                                <div className="p-2">
+                                    <p className="text-center">특이사항</p>
+                                    <textarea
+                                        className="resize-none w-full p-1 text-sm rounded-lg overflow-auto bg-gray-100 border-2"
+                                        readOnly
+                                        defaultValue={
+                                            roommate.notes
+                                                ? roommate.notes
+                                                : '없어요'
+                                        }
+                                    ></textarea>
+                                </div>
+                                <div className="text-center mb-2">
+                                    {token === null ? (
+                                        <EdgeButton
+                                            onClick={() => navigate('/login')}
+                                        >
+                                            로그인
+                                        </EdgeButton>
+                                    ) : decodedInfo?.id === roommate.user_id ? (
+                                        <EdgeButton
+                                            onClick={() =>
+                                                navigate('/roommate')
+                                            }
+                                        >
+                                            수정하기
+                                        </EdgeButton>
+                                    ) : decodedInfo?.gender ===
+                                      roommate.gender ? (
+                                        <EdgeButton>채팅하기</EdgeButton>
+                                    ) : (
+                                        <RedButton>성별이 달라요</RedButton>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ))
                 )}
             </div>
-            {hasNextPage && <h1 ref={ref}>Load More</h1>}
+            {hasNextPage && <h1 ref={ref}></h1>}
+            {isFetchingNextPage && (
+                <div className="flex justify-center items-center mt-2">
+                    <GreenLoading />
+                </div>
+            )}
         </div>
     );
 }
