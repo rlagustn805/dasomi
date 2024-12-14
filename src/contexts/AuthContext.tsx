@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +19,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const navigate = useNavigate();
 
+    const queryClient = useQueryClient();
+
     const handleToken = (newToken: string | null) => {
         setToken(newToken);
 
@@ -29,7 +32,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const logout = () => {
-        handleToken(null), navigate('/');
+        handleToken(null),
+            navigate('/'),
+            queryClient.invalidateQueries({
+                queryKey: ['profile'],
+            });
+        queryClient.invalidateQueries({
+            queryKey: ['myRoomMate'],
+        });
     };
 
     return (

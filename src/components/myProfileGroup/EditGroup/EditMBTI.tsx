@@ -64,6 +64,9 @@ export default function EditMBTI() {
                     <SelectBox {...field} arr={mbtiArr} title="MBTI" />
                 )}
             />
+            <br />
+            <br />
+            <br />
             {isPending ? (
                 <EdgeButton>
                     <Loading />

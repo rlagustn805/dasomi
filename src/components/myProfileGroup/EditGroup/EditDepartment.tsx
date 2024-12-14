@@ -82,6 +82,7 @@ export default function EditDepartment() {
                     <SelectBox {...field} arr={subDepartments} title="학과" />
                 )}
             ></Controller>
+            <br />
             {isPending ? (
                 <EdgeButton>
                     <Loading />

@@ -70,10 +70,14 @@ export default function GetMyRoomMate() {
         return <div>에러 발생: {error.message}</div>;
     }
 
+    const hashTagClass =
+        'border-green-500 border p-1 rounded-xl cursor-pointer hover:bg-green-500 hover:text-white duration-200';
+
     return (
         <div>
-            <p className="mb-2">등록한 나의 룸메이트</p>
-            <div className="flex flex-col gap-5 bg-gray-100 p-4 rounded-xl lg:flex-row">
+            <p className="mb-2">등록한 나의 룸메이트 정보</p>
+            {/* <div className="flex flex-col gap-5 bg-gray-100 p-4 rounded-xl lg:flex-row"> */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 p-4 rounded-xl bg-gray-100 gap-5">
                 {data?.map((roomMate, index: number) => (
                     <div
                         key={index}
@@ -82,36 +86,48 @@ export default function GetMyRoomMate() {
                         <span className="text-lg border-b-2">
                             {roomMate.dormitory} {roomMate.person_room}인실
                         </span>
-                        <span>
-                            룸메님{' '}
-                            {roomMate.friendly === 1 ? '친해져요' : '갠플해요'}
-                        </span>
-                        <span>
-                            실내취식{' '}
-                            {roomMate.indoor_eating === 1 ? '가능' : '불가능'}
-                        </span>
-                        <span>
-                            청결도{' '}
-                            {roomMate.cleanliness === 'low'
-                                ? '하'
-                                : roomMate.cleanliness === 'medium'
-                                ? '중'
-                                : '상'}
-                        </span>
-                        <span>
-                            잠버릇{' '}
-                            {roomMate.sleeping_habits === 1
-                                ? '있어요'
-                                : '없어요'}
-                        </span>
-                        <span>
-                            흡연 {roomMate.smoking === 1 ? '해요' : '안해요'}
-                        </span>
-                        <div>
-                            <p>하고 싶은 말</p>
-                            <span className="text-sm">
-                                {roomMate.notes ? roomMate.notes : '없음'}
+                        <div className="grid grid-cols-2 gap-2 text-sm text-center">
+                            <span className={hashTagClass}>
+                                #
+                                {roomMate.friendly === 1
+                                    ? '친해져요'
+                                    : '갠플해요'}
                             </span>
+                            <span className={hashTagClass}>
+                                #실내취식{' '}
+                                {roomMate.indoor_eating === 1
+                                    ? '가능'
+                                    : '불가능'}
+                            </span>
+                            <span className={hashTagClass}>
+                                #
+                                {roomMate.cleanliness === 'low'
+                                    ? '덜깔끔이'
+                                    : roomMate.cleanliness === 'medium'
+                                    ? '깔끔이'
+                                    : '왕깔끔이'}
+                            </span>
+                            <span className={hashTagClass}>
+                                #잠버릇{' '}
+                                {roomMate.sleeping_habits === 1
+                                    ? '있어요'
+                                    : '없어요'}
+                            </span>
+                            <span className={hashTagClass}>
+                                #흡연{' '}
+                                {roomMate.smoking === 1 ? '해요' : '안해요'}
+                            </span>
+                        </div>
+
+                        <div className="p-2">
+                            <p className="text-center">특이사항</p>
+                            <textarea
+                                className="resize-none w-full p-1 text-sm rounded-lg overflow-auto bg-gray-100 border-2"
+                                readOnly
+                                defaultValue={
+                                    roomMate.notes ? roomMate.notes : '없어요'
+                                }
+                            ></textarea>
                         </div>
                         <div className="flex flex-col flex-1 gap-2">
                             <EdgeButton onClick={() => modalClick(roomMate)}>

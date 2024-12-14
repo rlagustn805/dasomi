@@ -161,6 +161,8 @@ export default function EditNickname() {
                     </>
                 )}
             ></Controller>
+            <br />
+
             {isPending ? (
                 <EdgeButton>
                     <Loading />

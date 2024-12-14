@@ -10,8 +10,9 @@ import decodeToken from '../components/utils/decodeToken';
 import { useAuth } from '../hooks/useAuth';
 import RedButton from '../components/button/RedButton';
 import { RoomMateData } from '../components/myRoomMateGroup/CreateMyRoomMate';
-import { FilterList } from '../components/FilterList';
 import GreenLoading from '../components/GreenLoading';
+import GrayButton from '../components/button/GrayButton';
+import FilterList from '../components/FilterList';
 
 interface RoomMate extends RoomMateData {
     user_id: number;
@@ -22,15 +23,6 @@ interface RoomMate extends RoomMateData {
     student_id: string;
     mbti: string;
     department: string;
-}
-
-export interface Filters {
-    person_room: string;
-    gender: string;
-    friendly: string | number;
-    indoor_eating: string | number;
-    cleanliness: string;
-    smoking: string | number;
 }
 
 interface RoomMateResponse {
@@ -48,55 +40,123 @@ interface DecodedInfo {
 export default function RoomMateList() {
     const [decodedInfo, setDecodedInfo] = useState<DecodedInfo | null>(null);
     const [totalCount, setTotalCount] = useState<number | null>(null);
-    const [filters, setFilters] = useState<Filters>({
-        person_room: 'all',
-        gender: 'all',
-        friendly: 'all',
-        indoor_eating: 'all',
-        cleanliness: 'all',
-        smoking: 'all',
-    });
+
+    const initialFilters = [
+        {
+            id: '2room',
+            type: 'person_room',
+            name: '2인실',
+            value: '2',
+            active: false,
+        },
+        {
+            id: '4room',
+            type: 'person_room',
+            name: '4인실',
+            value: '4',
+            active: false,
+        },
+        { id: 'man', type: 'gender', name: '남자', value: 'M', active: false },
+        { id: 'girl', type: 'gender', name: '여자', value: 'F', active: false },
+        {
+            id: 'friendly-t',
+            type: 'friendly',
+            name: '친해져요',
+            value: 1,
+            active: false,
+        },
+        {
+            id: 'friendly-f',
+            type: 'friendly',
+            name: '갠플해요',
+            value: 0,
+            active: false,
+        },
+        {
+            id: 'indoor_eating-t',
+            type: 'indoor_eating',
+            name: '실내취식 O',
+            value: 1,
+            active: false,
+        },
+        {
+            id: 'indoor_eating-f',
+            type: 'indoor_eating',
+            name: '실내취식 X',
+            value: 0,
+            active: false,
+        },
+        {
+            id: 'clean-h',
+            type: 'cleanliness',
+            name: '왕깔끔이',
+            value: 'high',
+            active: false,
+        },
+        {
+            id: 'clean-m',
+            type: 'cleanliness',
+            name: '깔끔이',
+            value: 'medium',
+            active: false,
+        },
+        {
+            id: 'clean-l',
+            type: 'cleanliness',
+            name: '덜깔끔이',
+            value: 'low',
+            active: false,
+        },
+        {
+            id: 'smoking-t',
+            type: 'smoking',
+            name: '흡연',
+            value: 1,
+            active: false,
+        },
+        {
+            id: 'smoking-f',
+            type: 'smoking',
+            name: '비흡연',
+            value: 0,
+            active: false,
+        },
+        {
+            id: 'sh-t',
+            type: 'sleeping_habits',
+            name: '잠버릇 O',
+            value: 1,
+            active: false,
+        },
+        {
+            id: 'sh-f',
+            type: 'sleeping_habits',
+            name: '잠버릇 X',
+            value: 0,
+            active: false,
+        },
+    ];
+
+    const [filters, setFilters] = useState(initialFilters);
 
     const { dormitory } = useParams();
     const { token } = useAuth();
     const navigate = useNavigate();
-    const getRoomMates = async (
-        page: number,
-        person_room: string,
-        gender: string,
-        friendly: string | number,
-        indoor_eating: string | number,
-        cleanliness: string,
-        smoking: string | number
-    ): Promise<RoomMateResponse> => {
+    const getRoomMates = async (page: number): Promise<RoomMateResponse> => {
         const params: Record<string, any> = {
             dormitory: dormitory,
             page: page,
         };
 
-        if (person_room !== 'all') {
-            params.person_room = person_room;
-        }
+        filters
+            .filter((filter) => filter.active)
+            .forEach((filter) => {
+                if (!params[filter.type]) {
+                    params[filter.type] = [];
+                }
 
-        if (gender !== 'all') {
-            params.gender = gender;
-        }
-
-        if (friendly !== 'all') {
-            params.friendly = friendly;
-        }
-
-        if (indoor_eating !== 'all') {
-            params.indoor_eating = indoor_eating;
-        }
-
-        if (cleanliness !== 'all') {
-            params.cleanliness = cleanliness;
-        }
-
-        if (smoking !== 'all') {
-            params.smoking = smoking;
-        }
+                params[filter.type].push(filter.value);
+            });
 
         try {
             const res = await api.get('api/roommate', { params });
@@ -125,16 +185,7 @@ export default function RoomMateList() {
         isFetchingNextPage,
     } = useInfiniteQuery({
         queryKey: ['roomMates', dormitory, filters],
-        queryFn: ({ pageParam = 1 }) =>
-            getRoomMates(
-                pageParam,
-                filters.person_room,
-                filters.gender,
-                filters.friendly,
-                filters.indoor_eating,
-                filters.cleanliness,
-                filters.smoking
-            ),
+        queryFn: ({ pageParam = 1 }) => getRoomMates(pageParam),
         getNextPageParam: (lastPage) => {
             if (lastPage.currentPage < lastPage.totalPages) {
                 return lastPage.currentPage + 1;
@@ -160,13 +211,6 @@ export default function RoomMateList() {
         return <p>{error.message}</p>;
     }
 
-    const handleFilterChange = (
-        filterKey: keyof Filters,
-        value: string | number | boolean
-    ) => {
-        setFilters((prev) => ({ ...prev, [filterKey]: value }));
-    };
-
     const hashTagClass =
         'border-green-500 border p-1 rounded-xl cursor-pointer hover:bg-green-500 hover:text-white duration-200';
 
@@ -175,8 +219,8 @@ export default function RoomMateList() {
             <p className="text-lg">
                 {dormitory} {totalCount}개
             </p>
-            <FilterList filters={filters} onFilterChange={handleFilterChange} />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 bg-gray-100 rounded-xl">
+            <FilterList filters={filters} setFilters={setFilters} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 bg-gray-100 rounded-xl">
                 {data?.pages.map((page) =>
                     page.data.map((roommate) => (
                         <div key={roommate.room_id}>
@@ -188,10 +232,10 @@ export default function RoomMateList() {
                                         </p>
                                         <p>⭐{roommate.rating}</p>
                                     </div>
-                                    <p>{`${roommate.department} ${roommate.student_id}`}</p>
-                                    {roommate.mbti}
+                                    <p className="text-sm">{`${roommate.department} ${roommate.student_id}`}</p>
+                                    <p className="text-sm">{roommate.mbti}</p>
                                 </div>
-                                <div className="grid grid-cols-3 gap-2 p-2 text-sm text-center">
+                                <div className="grid grid-cols-2 gap-2 p-2 text-sm text-center">
                                     <p className={hashTagClass}>
                                         #
                                         {roommate.gender === 'M'
@@ -264,7 +308,7 @@ export default function RoomMateList() {
                                       roommate.gender ? (
                                         <EdgeButton>채팅하기</EdgeButton>
                                     ) : (
-                                        <RedButton>성별이 달라요</RedButton>
+                                        <GrayButton>성별이 달라요</GrayButton>
                                     )}
                                 </div>
                             </div>
