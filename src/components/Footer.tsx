@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { RiKakaoTalkFill } from 'react-icons/ri';
 
 export default function Footer() {
     interface Dormitorys {
@@ -18,7 +19,7 @@ export default function Footer() {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-green-500 p-4 mt-16 grid grid-cols-2 text-white rounded-lg">
+        <div className="bg-green-500 p-4 mt-16 grid grid-cols-2 sm:grid-cols-3 text-white rounded-lg">
             <div className="flex flex-col gap-1">
                 <p
                     className="cursor-pointer hover:underline"
@@ -50,6 +51,14 @@ export default function Footer() {
                     </p>
                 ))}
             </div>
+            <Link
+                to="https://open.kakao.com/o/skUO4i5g"
+                target="_blank"
+                className="flex items-center sm:ml-auto p-2 col-end-3 mt-10 sm:mt-0 sm:col-end-4 sm:p-4 gap-2 cursor-pointer bg-yellow-400 rounded-lg "
+            >
+                <RiKakaoTalkFill size={20} /> {/* 아이콘 크기 조정 */}
+                <span className="sm:text-lg">문의하기</span>
+            </Link>
         </div>
     );
 }

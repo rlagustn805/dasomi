@@ -77,7 +77,7 @@ export default function GetMyRoomMate() {
         <div>
             <p className="mb-2">등록한 나의 룸메이트 정보</p>
             {/* <div className="flex flex-col gap-5 bg-gray-100 p-4 rounded-xl lg:flex-row"> */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 p-4 rounded-xl bg-gray-100 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-4 rounded-xl bg-gray-100 gap-5">
                 {data?.map((roomMate, index: number) => (
                     <div
                         key={index}
@@ -86,6 +86,21 @@ export default function GetMyRoomMate() {
                         <span className="text-lg border-b-2">
                             {roomMate.dormitory} {roomMate.person_room}인실
                         </span>
+                        <picture>
+                            <source
+                                srcSet={`src/assets/dcuCharacter/webp/${roomMate.dcu_img}.webp`}
+                                type="image/webp"
+                            />
+                            <source
+                                srcSet={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
+                                type="image/jpeg"
+                            />
+                            <img
+                                src={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
+                                width={85}
+                                className="mb-5 m-auto"
+                            />
+                        </picture>
                         <div className="grid grid-cols-2 gap-2 text-sm text-center">
                             <span className={hashTagClass}>
                                 #
@@ -129,7 +144,7 @@ export default function GetMyRoomMate() {
                                 }
                             ></textarea>
                         </div>
-                        <div className="flex flex-col flex-1 gap-2">
+                        <div className="flex flex-col gap-2">
                             <EdgeButton onClick={() => modalClick(roomMate)}>
                                 수정하기
                             </EdgeButton>
