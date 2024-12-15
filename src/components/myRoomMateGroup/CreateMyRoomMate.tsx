@@ -9,6 +9,7 @@ import axios from 'axios';
 import Loading from '../Loading';
 import { useState } from 'react';
 import DcuImgModal from '../mdoal/DcuImageModal';
+import BaseInput from '../input/BaseInput';
 
 export interface RoomMateData {
     dormitory: string;
@@ -21,6 +22,7 @@ export interface RoomMateData {
     notes: string;
     room_id?: number;
     dcu_img: string;
+    talk_link: string;
 }
 
 export interface RoomMateProps {
@@ -52,6 +54,7 @@ export default function CreateMyRoomMate({
             smoking: 0,
             notes: '',
             dcu_img: 'dcu1',
+            talk_link: '',
         },
     });
 
@@ -69,6 +72,8 @@ export default function CreateMyRoomMate({
     };
 
     const dormitory = useWatch({ name: 'dormitory', control });
+    const talk_link = useWatch({ name: 'talk_link', control });
+
     const createRoomMate = async (data: RoomMateData) => {
         const res = isEdit
             ? await api.put('/api/roommate/me', data)
@@ -252,6 +257,33 @@ export default function CreateMyRoomMate({
                 )}
             />
             <Controller
+                name="talk_link"
+                control={control}
+                defaultValue={getValues('talk_link') || ''}
+                rules={{
+                    required: true,
+                    pattern: {
+                        value: /^https:\/\/open\.kakao\.com\//,
+                        message: '카톡 오픈채팅 링크를 입력해주세요.',
+                    },
+                }}
+                render={({ field, fieldState }) => (
+                    <>
+                        <p>카톡 오픈채팅 링크 입력</p>
+                        <BaseInput
+                            {...field}
+                            placeholder="카톡 오픈채팅 링크를 입력해주세요."
+                            value={getValues('talk_link') || ''}
+                        ></BaseInput>
+                        {fieldState.error && (
+                            <span className="error-red">
+                                {fieldState.error.message}
+                            </span>
+                        )}
+                    </>
+                )}
+            ></Controller>
+            <Controller
                 name="notes"
                 control={control}
                 render={({ field }) => (
@@ -277,7 +309,7 @@ export default function CreateMyRoomMate({
                     <Loading />
                 </EdgeButton>
             ) : (
-                <EdgeButton type="submit" disabled={!dormitory}>
+                <EdgeButton type="submit" disabled={!dormitory || !talk_link}>
                     {isEdit ? '수정하기' : '등록하기'}
                 </EdgeButton>
             )}

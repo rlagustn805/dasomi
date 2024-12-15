@@ -54,9 +54,9 @@ export default function Footer() {
             <Link
                 to="https://open.kakao.com/o/skUO4i5g"
                 target="_blank"
-                className="flex items-center sm:ml-auto p-2 col-end-3 mt-10 sm:mt-0 sm:col-end-4 sm:p-4 gap-2 cursor-pointer bg-yellow-400 rounded-lg "
+                className="flex items-center sm:ml-auto p-2 col-end-3 mt-10 sm:mt-0 sm:col-end-4 sm:p-4 gap-2 cursor-pointer bg-yellow-400 rounded-lg hover:bg-yellow-300 duration-200"
             >
-                <RiKakaoTalkFill size={20} /> {/* 아이콘 크기 조정 */}
+                <RiKakaoTalkFill size={40} /> {/* 아이콘 크기 조정 */}
                 <span className="sm:text-lg">문의하기</span>
             </Link>
         </div>

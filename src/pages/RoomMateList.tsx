@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api } from '../services/api';
 import axios from 'axios';
 import Loading from '../components/Loading';
@@ -13,6 +13,7 @@ import { RoomMateData } from '../components/myRoomMateGroup/CreateMyRoomMate';
 import GreenLoading from '../components/GreenLoading';
 import GrayButton from '../components/button/GrayButton';
 import FilterList from '../components/FilterList';
+import YellowButton from '../components/button/YellowButton';
 
 interface RoomMate extends RoomMateData {
     user_id: number;
@@ -23,6 +24,7 @@ interface RoomMate extends RoomMateData {
     student_id: string;
     mbti: string;
     department: string;
+    talk_link: string;
 }
 
 interface RoomMateResponse {
@@ -241,6 +243,7 @@ export default function RoomMateList() {
                                     </picture>
                                     <div className="p-2">
                                         <p className="text-md bg-green-500 inline-block p-1 rounded-xl text-white">
+                                            {/* <p className="text-green-700"> */}
                                             {roommate.nickname}
                                         </p>
                                         <p className="text-sm">
@@ -319,16 +322,21 @@ export default function RoomMateList() {
                                             로그인
                                         </EdgeButton>
                                     ) : decodedInfo?.id === roommate.user_id ? (
-                                        <EdgeButton
+                                        <YellowButton
                                             onClick={() =>
                                                 navigate('/roommate')
                                             }
                                         >
                                             수정하기
-                                        </EdgeButton>
+                                        </YellowButton>
                                     ) : decodedInfo?.gender ===
                                       roommate.gender ? (
-                                        <EdgeButton>채팅하기</EdgeButton>
+                                        <Link
+                                            to={roommate.talk_link}
+                                            target="_blank"
+                                        >
+                                            <EdgeButton>연락하기</EdgeButton>
+                                        </Link>
                                     ) : (
                                         <GrayButton>성별이 달라요</GrayButton>
                                     )}

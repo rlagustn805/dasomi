@@ -133,7 +133,6 @@ export default function GetMyRoomMate() {
                                 {roomMate.smoking === 1 ? '해요' : '안해요'}
                             </span>
                         </div>
-
                         <div className="p-2">
                             <p className="text-center">특이사항</p>
                             <textarea
