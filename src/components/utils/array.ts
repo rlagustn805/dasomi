@@ -1,3 +1,5 @@
+import { DcuImgArr } from '../SelectDcuImg';
+
 export const mbtiArr: string[] = [
     'ISTJ',
     'ISFJ',
@@ -142,3 +144,12 @@ export const dormitoryArr: string[] = [
     '성김대건관',
     '다솜관',
 ];
+
+export const dcuImgArr: DcuImgArr[] = Array.from({ length: 56 }, (_, index) => {
+    const id = `dcu${index + 1}`;
+    return {
+        id: id,
+        jpgSrc: `src/assets/dcuCharacter/jpg/${id}.jpg`,
+        webpSrc: `src/assets/dcuCharacter/webp/${id}.webp`,
+    };
+});

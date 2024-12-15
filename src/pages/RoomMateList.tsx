@@ -196,7 +196,6 @@ export default function RoomMateList() {
     });
 
     const { ref, inView } = useInView();
-
     useEffect(() => {
         if (inView && hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
@@ -225,16 +224,39 @@ export default function RoomMateList() {
                     page.data.map((roommate) => (
                         <div key={roommate.room_id}>
                             <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl m-2">
-                                <div className="bg-green-500 text-white p-2 rounded-xl">
-                                    <div className="flex justify-between">
-                                        <p className="text-lg">
+                                <div className="flex justify-evenly items-center p-2 shadow-lg">
+                                    <picture>
+                                        <source
+                                            srcSet={`src/assets/dcuCharacter/webp/${roommate.dcu_img}.webp`}
+                                            type="image/webp"
+                                        />
+                                        <source
+                                            srcSet={`src/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
+                                            type="image/jpeg"
+                                        />
+                                        <img
+                                            src={`src/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
+                                            width={80}
+                                        />
+                                    </picture>
+                                    <div className="p-2">
+                                        <p className="text-md bg-green-500 inline-block p-1 rounded-xl text-white">
                                             {roommate.nickname}
                                         </p>
-                                        <p>⭐{roommate.rating}</p>
+                                        <p className="text-sm">
+                                            {roommate.department}
+                                        </p>
+                                        <p className="text-sm">
+                                            {roommate.student_id}학번
+                                        </p>
+                                        <p className="text-sm">
+                                            {roommate.mbti}
+                                        </p>
                                     </div>
-                                    <p className="text-sm">{`${roommate.department} ${roommate.student_id}`}</p>
-                                    <p className="text-sm">{roommate.mbti}</p>
                                 </div>
+
+                                {/* <p>⭐{roommate.rating}</p> */}
+
                                 <div className="grid grid-cols-2 gap-2 p-2 text-sm text-center">
                                     <p className={hashTagClass}>
                                         #

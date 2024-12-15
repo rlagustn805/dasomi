@@ -7,6 +7,8 @@ import EdgeButton from '../button/EdgeButton';
 import { api } from '../../services/api';
 import axios from 'axios';
 import Loading from '../Loading';
+import { useState } from 'react';
+import DcuImgModal from '../mdoal/DcuImageModal';
 
 export interface RoomMateData {
     dormitory: string;
@@ -18,6 +20,7 @@ export interface RoomMateData {
     smoking: number;
     notes: string;
     room_id?: number;
+    dcu_img: string;
 }
 
 export interface RoomMateProps {
@@ -36,6 +39,7 @@ export default function CreateMyRoomMate({
         control,
         formState: { errors },
         handleSubmit,
+        setValue,
     } = useForm<RoomMateData>({
         mode: 'onChange',
         defaultValues: selectedRoom || {
@@ -47,8 +51,22 @@ export default function CreateMyRoomMate({
             sleeping_habits: 1,
             smoking: 0,
             notes: '',
+            dcu_img: 'dcu1',
         },
     });
+
+    console.log(selectedRoom);
+
+    const [imgModalOpen, setImgModalOpen] = useState(false);
+    const [selectedImgId, setSelectedImgId] = useState<string>(
+        getValues('dcu_img') || 'dcu1'
+    );
+
+    const handleImgClick = (id: string) => {
+        setSelectedImgId(id);
+        setValue('dcu_img', id);
+        setImgModalOpen(false);
+    };
 
     const dormitory = useWatch({ name: 'dormitory', control });
     const createRoomMate = async (data: RoomMateData) => {
@@ -81,6 +99,40 @@ export default function CreateMyRoomMate({
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+            <Controller
+                name="dcu_img"
+                control={control}
+                defaultValue={getValues('dcu_img') || ''}
+                render={({ field }) => (
+                    <>
+                        <div className="p-4 flex justify-center">
+                            <div className="p-2 border-2 border-black rounded-xl">
+                                <picture>
+                                    <source
+                                        srcSet={`src/assets/dcuCharacter/webp/${selectedImgId}.webp`}
+                                        type="image/webp"
+                                    />
+                                    <source
+                                        srcSet={`src/assets/dcuCharacter/jpg/${selectedImgId}.jpg`}
+                                        type="image/jpeg"
+                                    />
+                                    <img
+                                        src={`src/assets/dcuCharacter/jpg/${selectedImgId}.jpg`}
+                                        width={100}
+                                        className="mb-5"
+                                    />
+                                </picture>
+                                <EdgeButton
+                                    onClick={() => setImgModalOpen(true)}
+                                >
+                                    이미지 등록
+                                </EdgeButton>
+                            </div>
+                        </div>
+                    </>
+                )}
+            ></Controller>
+
             <Controller
                 name="dormitory"
                 control={control}
@@ -214,6 +266,11 @@ export default function CreateMyRoomMate({
                         </div>
                     </>
                 )}
+            />
+            <DcuImgModal
+                modalOpen={imgModalOpen}
+                setModalOpen={setImgModalOpen}
+                handleImgClick={handleImgClick}
             />
             {isPending ? (
                 <EdgeButton>
