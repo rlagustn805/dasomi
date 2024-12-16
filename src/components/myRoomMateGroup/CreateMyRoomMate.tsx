@@ -23,6 +23,7 @@ export interface RoomMateData {
     room_id?: number;
     dcu_img: string;
     talk_link: string;
+    reservation_status: string;
 }
 
 export interface RoomMateProps {

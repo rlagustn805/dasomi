@@ -30,7 +30,6 @@ export default function Header() {
             text: '룸메이트 관리',
             onclick: () => handleMenuClick(() => navigate('/roommate')),
         },
-        { text: '채팅함' },
     ];
 
     return (

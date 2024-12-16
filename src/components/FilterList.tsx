@@ -28,7 +28,7 @@ export default function FilterList({ filters, setFilters }: FilterListProps) {
     const activeFilterClass = 'bg-green-500 text-white';
 
     return (
-        <div className="flex flex-wrap gap-3 border-2 p-2 rounded-xl text-sm">
+        <div className="flex flex-wrap gap-2 border-2 p-2 rounded-xl text-sm">
             {filters.map((filter) => (
                 <span
                     key={filter.id}

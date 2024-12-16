@@ -225,7 +225,7 @@ export default function RoomMateList() {
                 {data?.pages.map((page) =>
                     page.data.map((roommate) => (
                         <div key={roommate.room_id}>
-                            <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl m-2">
+                            <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl m-2 relative">
                                 <div className="flex justify-evenly items-center p-2 shadow-lg">
                                     <picture>
                                         <source
@@ -242,8 +242,8 @@ export default function RoomMateList() {
                                         />
                                     </picture>
                                     <div className="p-2">
-                                        <p className="text-md bg-green-500 inline-block p-1 rounded-xl text-white">
-                                            {/* <p className="text-green-700"> */}
+                                        {/* <p className="text-md bg-green-500 inline-block p-1 rounded-xl text-white"> */}
+                                        <p className="text-green-700">
                                             {roommate.nickname}
                                         </p>
                                         <p className="text-sm">
@@ -341,6 +341,25 @@ export default function RoomMateList() {
                                         <GrayButton>성별이 달라요</GrayButton>
                                     )}
                                 </div>
+                                {roommate.reservation_status !==
+                                    'available' && (
+                                    <div className="absolute z-2 bg-black text-white bg-opacity-75 w-full h-full cursor-pointer rounded-xl">
+                                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                            <div className="opacity-100 flex flex-col items-center gap-2">
+                                                <img
+                                                    src="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                                                    alt=""
+                                                />
+                                                <p className="">
+                                                    {roommate.reservation_status ===
+                                                    'reserving'
+                                                        ? '매칭중 이에요!'
+                                                        : '매칭완료 했어요!'}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))

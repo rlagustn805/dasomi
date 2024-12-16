@@ -7,8 +7,15 @@ import RoomMateModal from '../mdoal/RoomMateModal';
 import { useState } from 'react';
 import { RoomMateData, RoomMateProps } from './CreateMyRoomMate';
 import axios from 'axios';
+import SelectBox from '../select/SelectBox';
 
 export default function GetMyRoomMate() {
+    const statusMap: Record<string, string> = {
+        available: '매칭가능',
+        reserving: '매칭중',
+        completed: '매칭완료',
+    };
+
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedRoom, setSelectedRoom] = useState<RoomMateData>();
 
@@ -43,6 +50,21 @@ export default function GetMyRoomMate() {
         return res.data;
     };
 
+    const updateReservationStatus = async ({
+        room_id,
+        status,
+    }: {
+        room_id: number;
+        status: string;
+    }) => {
+        const res = await api.put('/api/roommate/reservation/edit', {
+            room_id,
+            status,
+        });
+
+        return res.data;
+    };
+
     const queryClient = useQueryClient();
 
     const { mutate: deleteMyRoommate, isPending } = useMutation({
@@ -52,6 +74,19 @@ export default function GetMyRoomMate() {
             alert('정상적으로 삭제하였습니다.');
         },
 
+        onError: (err) => {
+            if (axios.isAxiosError(err)) {
+                alert(JSON.stringify(err.response?.data.message));
+            }
+        },
+    });
+
+    const { mutate: updateReservation, isPending: isUpdating } = useMutation({
+        mutationFn: updateReservationStatus,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['myRoomMate'] });
+            alert('정상적으로 수정하였습니다.');
+        },
         onError: (err) => {
             if (axios.isAxiosError(err)) {
                 alert(JSON.stringify(err.response?.data.message));
@@ -84,8 +119,22 @@ export default function GetMyRoomMate() {
                         className="flex flex-col px-4 py-2 gap-2 flex-1 bg-white rounded-xl shadow-lg justify-between h-full"
                     >
                         <span className="text-lg border-b-2">
-                            {roomMate.dormitory} {roomMate.person_room}인실
+                            {roomMate.dormitory} {roomMate.person_room}인실{' '}
                         </span>
+                        <SelectBox
+                            arr={Object.values(statusMap)}
+                            value={''}
+                            onChange={(e) =>
+                                updateReservation({
+                                    room_id: roomMate.room_id!,
+                                    status: Object.keys(statusMap).find(
+                                        (key) =>
+                                            statusMap[key] === e.target.value
+                                    )!,
+                                })
+                            }
+                            title="매칭 변경"
+                        />
                         <picture>
                             <source
                                 srcSet={`src/assets/dcuCharacter/webp/${roomMate.dcu_img}.webp`}
@@ -98,9 +147,26 @@ export default function GetMyRoomMate() {
                             <img
                                 src={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
                                 width={85}
-                                className="mb-5 m-auto"
+                                className="mb-5 m-auto min-h-28"
                             />
                         </picture>
+                        <span
+                            className={`text-center text-white rounded-lg  ${
+                                roomMate.reservation_status === 'available'
+                                    ? 'bg-green-500'
+                                    : roomMate.reservation_status ===
+                                      'reserving'
+                                    ? 'bg-yellow-500'
+                                    : 'bg-red-500'
+                            }`}
+                        >
+                            {roomMate.reservation_status === 'available'
+                                ? '매칭가능'
+                                : roomMate.reservation_status === 'reserving'
+                                ? '매칭중'
+                                : '매칭완료'}
+                        </span>
+
                         <div className="grid grid-cols-2 gap-2 text-sm text-center">
                             <span className={hashTagClass}>
                                 #
