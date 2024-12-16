@@ -44,26 +44,35 @@ export default function GetMyProfile() {
         return <div>에러 발생: {error.message}</div>;
     }
 
-    const removeTrailingZero = (str?: string) =>
-        str ? str.replace(/0+$/, '') : 'N/A';
-
     const myInfo = [
         { label: '성별', value: data?.gender === 'M' ? '남' : '여' },
-        { label: '평점', value: removeTrailingZero(data?.rating) },
         { label: 'MBTI', value: data?.mbti },
+        { label: '학과', value: data?.department },
     ];
 
     return (
         <div className="flex flex-col gap-10 bg-green-500 text-white p-2 rounded-lg">
             <div className="flex gap-10 items-center">
                 <div className="ml-7">
-                    <CgProfile size={80} />
+                    <picture>
+                        <source
+                            srcSet="src\assets\dcuCharacter\webp\dcuFace.webp"
+                            type="image/webp"
+                        />
+                        <source
+                            srcSet="src\assets\dcuCharacter\jpg\dcuFace.jpg"
+                            type="image/jpg"
+                        />
+                        <img
+                            src="src\assets\dcuCharacter\jpg\dcuFace.jpg"
+                            width={100}
+                        />
+                    </picture>
                 </div>
                 <div className="flex flex-col gap-2 flex-1">
                     <span className="text-xl">{data?.nickname}</span>
                     <div className="p-2 text-sm flex flex-col gap-1 bg-white bg-opacity-35 rounded-lg">
                         <span>{data?.email}</span>
-                        <span>{data?.department}</span>
                         <span>{data?.student_Id} 학번</span>
                     </div>
                 </div>

@@ -346,10 +346,25 @@ export default function RoomMateList() {
                                     <div className="absolute z-2 bg-black text-white bg-opacity-75 w-full h-full cursor-pointer rounded-xl">
                                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                             <div className="opacity-100 flex flex-col items-center gap-2">
-                                                <img
-                                                    src="src/assets/dcuCharacter/jpg/dcuFace.jpg"
-                                                    alt=""
-                                                />
+                                                <picture>
+                                                    <source
+                                                        srcSet={
+                                                            'src/assets/dcuCharacter/webp/dcuFace.webp'
+                                                        }
+                                                        type="image/webp"
+                                                    />
+                                                    <source
+                                                        srcSet={
+                                                            'src/assets/dcuCharacter/jpg/dcuFace.jpg'
+                                                        }
+                                                        type="image/jpeg"
+                                                    />
+                                                    <img
+                                                        src="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                                                        alt=""
+                                                    />
+                                                </picture>
+
                                                 <p className="">
                                                     {roommate.reservation_status ===
                                                     'reserving'
