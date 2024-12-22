@@ -18,6 +18,7 @@ interface FormValues extends ErrorStatus {
     department: string;
     student_id: string;
     nickname: string;
+    terms: boolean;
 }
 
 interface ErrorStatus {
@@ -143,7 +144,7 @@ export default function RegisterTest() {
                 onSubmit={methods.handleSubmit((data) => register(data))}
                 className="h-full"
             >
-                <div className="h-full flex flex-col items-center justify-center gap-2 border-black border rounded-xl">
+                <div className="h-full flex flex-col items-center justify-center gap-2 shadow-md p-4">
                     <div>
                         <p className="text-lg font-bold text-center mb-4">
                             회원가입 {step + 1} / 3

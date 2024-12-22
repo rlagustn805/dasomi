@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Loading from '../Loading.tsx';
 import { api } from '../../services/api.tsx';
 import axios from 'axios';
+import TermsModal from '../mdoal/TermsModal.tsx';
 
 interface Step3rops {
     setAuthStep: (value: boolean) => void;
@@ -19,6 +20,8 @@ export default function Step3({ setAuthStep }: Step3rops) {
     const [subDepartments, setSubDepartments] = useState<string[]>([]);
     const [checkNicknameMsg, setCheckNicknameMsg] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isTerms, setIsTerms] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const nicknameCheckErr = useWatch({ control, name: 'nicknameCheckErr' });
     const selectedGender = useWatch({ control, name: 'gender' });
@@ -67,10 +70,11 @@ export default function Step3({ setAuthStep }: Step3rops) {
             major &&
             major !== '단과대학' &&
             department &&
-            department !== '학과';
+            department !== '학과' &&
+            isTerms === true;
 
         setAuthStep(isValid);
-    }, [nicknameCheckErr, mbti, studentId, major, department]);
+    }, [nicknameCheckErr, mbti, studentId, major, department, isTerms]);
 
     return (
         <div className="flex flex-col gap-2">
@@ -174,7 +178,6 @@ export default function Step3({ setAuthStep }: Step3rops) {
                     여자
                 </span>
             </div>
-
             <Controller
                 name="mbti"
                 control={control}
@@ -203,6 +206,29 @@ export default function Step3({ setAuthStep }: Step3rops) {
                     <SelectBox {...field} arr={subDepartments} title="학과" />
                 )}
             ></Controller>
+            <Controller
+                name="terms"
+                control={control}
+                defaultValue={isTerms}
+                render={({ field }) => (
+                    <div className="flex gap-2 items-center">
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            checked={isTerms}
+                            onChange={(e) => setIsTerms(e.target.checked)}
+                        />
+                        <span
+                            className="text-sm hover:underline cursor-pointer"
+                            onClick={() => setIsModalOpen(!isModalOpen)}
+                        >
+                            이용 약관 동의
+                        </span>
+                    </div>
+                )}
+            ></Controller>
+
+            <TermsModal modalOpen={isModalOpen} setModalOpen={setIsModalOpen} />
         </div>
     );
 }

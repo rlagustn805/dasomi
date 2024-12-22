@@ -26,5 +26,3 @@ export default function Title() {
         </div>
     );
 }
-
-// 예지관, 효성관, 성김대건관, 다솜관

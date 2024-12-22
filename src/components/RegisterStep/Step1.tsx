@@ -5,6 +5,7 @@ import Loading from '../Loading';
 import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 interface Step1Props {
     setAuthStep: (value: boolean) => void;
@@ -156,9 +157,25 @@ export default function Step1({ setAuthStep }: Step1Props) {
                                 인증번호 전송
                             </EdgeButton>
                         ) : (
-                            <EdgeButton>
-                                {minutes} : {seconds}
-                            </EdgeButton>
+                            <div className="flex flex-col gap-2">
+                                <EdgeButton>
+                                    {minutes} : {seconds}
+                                </EdgeButton>
+                                <EdgeButton>
+                                    <Link
+                                        to={
+                                            'https://red.cu.ac.kr/DCU_Portal/pages/Logon.jsp'
+                                        }
+                                        target="_blank"
+                                    >
+                                        메일 바로가기
+                                    </Link>
+                                </EdgeButton>
+
+                                <p className="text-xs">
+                                    메일 도착 약 1분 소요됩니다.
+                                </p>
+                            </div>
                         )}
                     </>
                 )}

@@ -5,9 +5,67 @@
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>다솜이 | 함께 사는 즐거움</title>
+        <style>
+            #loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: #166534;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+
+            #loading img {
+                width: 150px;
+                animation: bounce 2s infinite ease-in-out;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes bounce {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-20px);
+                }
+            }
+
+            #root {
+                display: none;
+            }
+        </style>
     </head>
     <body oncontextmenu="return false">
         <div id="root"></div>
+        <div id="loading">
+            <picture>
+                <source
+                    srcset="src\assets\dcuCharacter\webp\dcuFace.webp"
+                    type="image/webp"
+                />
+                <source
+                    srcset="src\assets\dcuCharacter\jpeg\dcuFace.jpeg"
+                    type="image/jpeg"
+                />
+                <img
+                    src="src\assets\dcuCharacter\jpeg\dcuFace.jpeg"
+                    alt="loading"
+                />
+            </picture>
+        </div>
         <script type="module" src="/src/main.tsx"></script>
     </body>
 </html>

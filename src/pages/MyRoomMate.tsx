@@ -24,10 +24,20 @@ export default function MyRoomMate() {
 
     return (
         <div>
-            <div className="flex flex-col gap-2">
-                <div className="ml-auto">
-                    <EdgeButton onClick={modalClick}>등록하기</EdgeButton>
+            <div className="flex flex-col gap-5">
+                <div className="flex flex-col gap-3 justify-between items-center sm:flex-row sm:items-end">
+                    <div>
+                        <p className="mb-2">등록한 나의 룸메이트 정보</p>
+                        <p className="text-sm text-gray-400">
+                            룸메이트 신청은 우리 학교 기숙사 홈페이지에서 따로
+                            신청을 하셔야 해요!
+                        </p>
+                    </div>
+                    <div className="">
+                        <EdgeButton onClick={modalClick}>등록하기</EdgeButton>
+                    </div>
                 </div>
+
                 <GetMyRoomMate />
             </div>
 

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { RoomMateData, RoomMateProps } from './CreateMyRoomMate';
 import axios from 'axios';
 import SelectBox from '../select/SelectBox';
+import GreenLoading from '../GreenLoading';
 
 export default function GetMyRoomMate() {
     const statusMap: Record<string, string> = {
@@ -93,13 +94,31 @@ export default function GetMyRoomMate() {
             }
         },
     });
-
-    if (isLoading) return <Loading />;
-    // if (isLoading) return <div>로딩중</div>;
+    console.log(isLoading);
 
     if (isError && error instanceof Error) {
         if (axios.isAxiosError(error) && error.response?.status === 404) {
-            return <div>등록된 나의 룸메이트 정보가 없어요!</div>;
+            return (
+                <div className="bg-green-700 min-h-[30vh] rounded-lg flex flex-col gap-2 items-center justify-center">
+                    <picture>
+                        <source
+                            srcSet="src/assets/dcuCharacter/webp/dcuFace.webp"
+                            type="image/webp"
+                        />
+                    </picture>
+                    <source
+                        srcSet="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                        type="image/jpeg"
+                    />
+                    <img
+                        src="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                        width={80}
+                    />
+                    <p className="text-white">
+                        등록된 나의 룸메이트 정보가 없어요!{' '}
+                    </p>
+                </div>
+            );
         }
 
         return <div>에러 발생: {error.message}</div>;
@@ -110,132 +129,143 @@ export default function GetMyRoomMate() {
 
     return (
         <div>
-            <p className="mb-2">등록한 나의 룸메이트 정보</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-4 rounded-xl bg-gray-100 gap-5">
-                {data?.map((roomMate, index: number) => (
-                    <div
-                        key={index}
-                        className="flex flex-col px-4 py-2 gap-2 flex-1 bg-white rounded-xl shadow-lg justify-between h-full"
-                    >
-                        <span className="text-lg border-b-2">
-                            {roomMate.dormitory} {roomMate.person_room}인실{' '}
-                        </span>
-                        <SelectBox
-                            arr={Object.values(statusMap)}
-                            value={''}
-                            onChange={(e) =>
-                                updateReservation({
-                                    room_id: roomMate.room_id!,
-                                    status: Object.keys(statusMap).find(
-                                        (key) =>
-                                            statusMap[key] === e.target.value
-                                    )!,
-                                })
-                            }
-                            title="매칭 변경"
-                        />
-                        <picture>
-                            <source
-                                srcSet={`src/assets/dcuCharacter/webp/${roomMate.dcu_img}.webp`}
-                                type="image/webp"
+            {isLoading ? (
+                <div className="bg-gray-100 rounded-xl min-h-screen flex justify-center items-center">
+                    <GreenLoading />
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-4 rounded-xl bg-gray-100 gap-5">
+                    {data?.map((roomMate, index: number) => (
+                        <div
+                            key={index}
+                            className="flex flex-col px-4 py-2 gap-2 flex-1 bg-white rounded-xl shadow-lg justify-between h-full"
+                        >
+                            <span className="text-lg border-b-2">
+                                {roomMate.dormitory} {roomMate.person_room}인실
+                            </span>
+                            <SelectBox
+                                arr={Object.values(statusMap)}
+                                value={''}
+                                onChange={(e) =>
+                                    updateReservation({
+                                        room_id: roomMate.room_id!,
+                                        status: Object.keys(statusMap).find(
+                                            (key) =>
+                                                statusMap[key] ===
+                                                e.target.value
+                                        )!,
+                                    })
+                                }
+                                title="매칭 변경"
                             />
-                            <source
-                                srcSet={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
-                                type="image/jpeg"
-                            />
-                            <img
-                                src={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
-                                width={85}
-                                className="mb-5 m-auto min-h-28"
-                            />
-                        </picture>
-                        <span
-                            className={`text-center text-white rounded-lg  ${
-                                roomMate.reservation_status === 'available'
-                                    ? 'bg-green-500'
+                            <picture>
+                                <source
+                                    srcSet={`src/assets/dcuCharacter/webp/${roomMate.dcu_img}.webp`}
+                                    type="image/webp"
+                                />
+                                <source
+                                    srcSet={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
+                                    type="image/jpeg"
+                                />
+                                <img
+                                    src={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
+                                    width={100}
+                                    className="mb-5 m-auto min-h-28"
+                                />
+                            </picture>
+                            <span
+                                className={`text-center text-white rounded-lg  ${
+                                    roomMate.reservation_status === 'available'
+                                        ? 'bg-green-500'
+                                        : roomMate.reservation_status ===
+                                          'reserving'
+                                        ? 'bg-yellow-500'
+                                        : 'bg-red-500'
+                                }`}
+                            >
+                                {roomMate.reservation_status === 'available'
+                                    ? '매칭가능'
                                     : roomMate.reservation_status ===
                                       'reserving'
-                                    ? 'bg-yellow-500'
-                                    : 'bg-red-500'
-                            }`}
-                        >
-                            {roomMate.reservation_status === 'available'
-                                ? '매칭가능'
-                                : roomMate.reservation_status === 'reserving'
-                                ? '매칭중'
-                                : '매칭완료'}
-                        </span>
+                                    ? '매칭중'
+                                    : '매칭완료'}
+                            </span>
 
-                        <div className="grid grid-cols-2 gap-2 text-sm text-center">
-                            <span className={hashTagClass}>
-                                #
-                                {roomMate.friendly === 1
-                                    ? '친해져요'
-                                    : '갠플해요'}
-                            </span>
-                            <span className={hashTagClass}>
-                                #실내취식{' '}
-                                {roomMate.indoor_eating === 1
-                                    ? '가능'
-                                    : '불가능'}
-                            </span>
-                            <span className={hashTagClass}>
-                                #
-                                {roomMate.cleanliness === 'low'
-                                    ? '덜깔끔이'
-                                    : roomMate.cleanliness === 'medium'
-                                    ? '깔끔이'
-                                    : '왕깔끔이'}
-                            </span>
-                            <span className={hashTagClass}>
-                                #잠버릇{' '}
-                                {roomMate.sleeping_habits === 1
-                                    ? '있어요'
-                                    : '없어요'}
-                            </span>
-                            <span className={hashTagClass}>
-                                #흡연{' '}
-                                {roomMate.smoking === 1 ? '해요' : '안해요'}
-                            </span>
-                        </div>
-                        <div className="p-2">
-                            <p className="text-center">특이사항</p>
-                            <textarea
-                                className="resize-none w-full p-1 text-sm rounded-lg overflow-auto bg-gray-100 border-2"
-                                readOnly
-                                defaultValue={
-                                    roomMate.notes ? roomMate.notes : '없어요'
-                                }
-                            ></textarea>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                            <EdgeButton onClick={() => modalClick(roomMate)}>
-                                수정하기
-                            </EdgeButton>
-                            {isPending ? (
-                                <RedButton>
-                                    <Loading />
-                                </RedButton>
-                            ) : (
-                                <RedButton
-                                    onClick={() =>
-                                        deleteMyRoommate(roomMate.room_id!)
+                            <div className="grid grid-cols-2 gap-2 text-sm text-center">
+                                <span className={hashTagClass}>
+                                    #
+                                    {roomMate.friendly === 1
+                                        ? '친해져요'
+                                        : '갠플해요'}
+                                </span>
+                                <span className={hashTagClass}>
+                                    #실내취식{' '}
+                                    {roomMate.indoor_eating === 1
+                                        ? '가능'
+                                        : '불가능'}
+                                </span>
+                                <span className={hashTagClass}>
+                                    #
+                                    {roomMate.cleanliness === 'low'
+                                        ? '덜깔끔이'
+                                        : roomMate.cleanliness === 'medium'
+                                        ? '깔끔이'
+                                        : '왕깔끔이'}
+                                </span>
+                                <span className={hashTagClass}>
+                                    #잠버릇{' '}
+                                    {roomMate.sleeping_habits === 1
+                                        ? '있어요'
+                                        : '없어요'}
+                                </span>
+                                <span className={hashTagClass}>
+                                    #흡연{' '}
+                                    {roomMate.smoking === 1 ? '해요' : '안해요'}
+                                </span>
+                            </div>
+                            <div className="p-2">
+                                <p className="text-center">특이사항</p>
+                                <textarea
+                                    className="resize-none w-full p-1 text-sm rounded-lg overflow-auto bg-gray-100 border-2"
+                                    readOnly
+                                    defaultValue={
+                                        roomMate.notes
+                                            ? roomMate.notes
+                                            : '없어요'
                                     }
+                                ></textarea>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <EdgeButton
+                                    onClick={() => modalClick(roomMate)}
                                 >
-                                    삭제하기
-                                </RedButton>
-                            )}
+                                    수정하기
+                                </EdgeButton>
+                                {isPending ? (
+                                    <RedButton>
+                                        <Loading />
+                                    </RedButton>
+                                ) : (
+                                    <RedButton
+                                        onClick={() =>
+                                            deleteMyRoommate(roomMate.room_id!)
+                                        }
+                                    >
+                                        삭제하기
+                                    </RedButton>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
 
-                <RoomMateModal
-                    modalOpen={modalOpen}
-                    setModalOpen={() => setModalOpen(false)}
-                    isEdit={true}
-                    selectedRoom={selectedRoom}
-                />
-            </div>
+                    <RoomMateModal
+                        modalOpen={modalOpen}
+                        setModalOpen={() => setModalOpen(false)}
+                        isEdit={true}
+                        selectedRoom={selectedRoom}
+                    />
+                </div>
+            )}
         </div>
     );
 }

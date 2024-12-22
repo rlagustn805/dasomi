@@ -63,7 +63,7 @@ export default function Domitorys() {
                     <div
                         key={domitory.id}
                         className="h-36 relative md:h-52"
-                        onClick={() => navigate(`/${domitory.name}`)}
+                        onClick={() => navigate(`dormitory/${domitory.name}`)}
                     >
                         <picture>
                             <source

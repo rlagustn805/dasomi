@@ -19,7 +19,7 @@ export default function Footer() {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-green-500 p-4 mt-16 grid grid-cols-2 sm:grid-cols-3 text-white rounded-lg">
+        <div className="bg-green-800 p-4 mt-16 grid grid-cols-2 text-white rounded-lg">
             <div className="flex flex-col gap-1">
                 <p
                     className="cursor-pointer hover:underline"
@@ -44,21 +44,23 @@ export default function Footer() {
                 {dormitorys.map((dormitory, index) => (
                     <p
                         key={index}
-                        onClick={() => navigate(`/${dormitory.name}`)}
-                        className="cursor-pointer hover:underline"
+                        onClick={() => navigate(`/dormitory/${dormitory.name}`)}
+                        className="cursor-pointer hover:underline flex justify-end"
                     >
                         {dormitory.name}
                     </p>
                 ))}
             </div>
-            <Link
-                to="https://open.kakao.com/o/skUO4i5g"
-                target="_blank"
-                className="flex items-center sm:ml-auto p-2 col-end-3 mt-10 sm:mt-0 sm:col-end-4 sm:p-4 gap-2 cursor-pointer bg-yellow-400 rounded-lg hover:bg-yellow-300 duration-200"
-            >
-                <RiKakaoTalkFill size={40} /> {/* 아이콘 크기 조정 */}
-                <span className="sm:text-lg">문의하기</span>
-            </Link>
+            <div className="col-end-3 ml-auto">
+                <Link
+                    to="https://open.kakao.com/o/skUO4i5g"
+                    target="_blank"
+                    className="inline-flex items-center px-2 py-1 mt-6 gap-2 cursor-pointer bg-yellow-400 rounded-lg hover:bg-yellow-300 duration-200"
+                >
+                    <RiKakaoTalkFill size={40} color="rgb(113 63 18)" />{' '}
+                    <span className="text-sm  text-yellow-900">문의하기</span>
+                </Link>
+            </div>
         </div>
     );
 }

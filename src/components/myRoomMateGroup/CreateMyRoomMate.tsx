@@ -293,7 +293,7 @@ export default function CreateMyRoomMate({
                             <p>특이사항</p>
                             <textarea
                                 {...field}
-                                placeholder={`하고 싶은 말이 있다면 남겨주세요! ${'\n'} ex. 잠버릇 등 (선택)`}
+                                placeholder={`하고 싶은 말이 있다면 남겨주세요! ${'\n'} ex. 잠버릇, 수면 주기 등 (선택)`}
                                 className="resize-none w-full bg-gray-100 p-2"
                             ></textarea>
                         </div>

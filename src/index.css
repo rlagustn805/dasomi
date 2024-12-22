@@ -24,3 +24,7 @@ body {
 #root {
     height: 100%;
 }
+
+#root:not(:empty) ~ #loading {
+    display: none;
+}
