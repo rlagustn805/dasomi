@@ -84,6 +84,28 @@ export default function Domitorys() {
                         </p>
                     </div>
                 ))}
+                <div
+                    className="h-36 relative md:h-52 border-2 border-black rounded-lg bg-green-700 cursor-pointer hover:bg-green-600"
+                    onClick={() => navigate('/help')}
+                >
+                    <picture>
+                        <source
+                            srcSet="src/assets/dcuCharacter/webp/dcuFace.webp"
+                            type="image/webp"
+                        />
+                        <source
+                            srcSet="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                            type="image/jpeg"
+                        />
+                        <img
+                            src="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                            className="w-full h-full object-cover rounded-lg"
+                        />
+                    </picture>
+                    <p className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-2 text-lg w-full text-center">
+                        도와주세요!!
+                    </p>
+                </div>
             </div>
         </>
     );

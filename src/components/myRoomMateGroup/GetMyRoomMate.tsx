@@ -3,7 +3,7 @@ import { api } from '../../services/api';
 import Loading from '../Loading';
 import EdgeButton from '../button/EdgeButton';
 import RedButton from '../button/RedButton';
-import RoomMateModal from '../mdoal/RoomMateModal';
+import RoomMateModal from '../modal/RoomMateModal';
 import { useState } from 'react';
 import { RoomMateData, RoomMateProps } from './CreateMyRoomMate';
 import axios from 'axios';

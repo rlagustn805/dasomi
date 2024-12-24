@@ -8,7 +8,7 @@ import { api } from '../../services/api';
 import axios from 'axios';
 import Loading from '../Loading';
 import { useState } from 'react';
-import DcuImgModal from '../mdoal/DcuImageModal';
+import DcuImgModal from '../modal/DcuImageModal';
 import BaseInput from '../input/BaseInput';
 
 export interface RoomMateData {
@@ -310,7 +310,10 @@ export default function CreateMyRoomMate({
                     <Loading />
                 </EdgeButton>
             ) : (
-                <EdgeButton type="submit" disabled={!dormitory || !talk_link}>
+                <EdgeButton
+                    type="submit"
+                    disabled={!dormitory || !talk_link || errors.talk_link}
+                >
                     {isEdit ? '수정하기' : '등록하기'}
                 </EdgeButton>
             )}

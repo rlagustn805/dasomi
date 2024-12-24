@@ -16,6 +16,7 @@ import MyProfile from './pages/MyProfile';
 import MyRoomMate from './pages/MyRoomMate';
 import RoomMateList from './pages/RoomMateList';
 import NotFound from './pages/NotFound';
+import Help from './pages/Help';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
@@ -49,6 +50,7 @@ function App() {
                                 path="/dormitory/:dormitory"
                                 element={<RoomMateList />}
                             ></Route>
+                            <Route path="/help" element={<Help />}></Route>
                             <Route path="/*" element={<NotFound />} />
                         </Routes>
                     </div>

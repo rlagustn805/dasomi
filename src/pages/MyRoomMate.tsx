@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import RoomMateModal from '../components/mdoal/RoomMateModal';
+import RoomMateModal from '../components/modal/RoomMateModal';
 import EdgeButton from '../components/button/EdgeButton';
 import GetMyRoomMate from '../components/myRoomMateGroup/GetMyRoomMate';
 import { useEffect } from 'react';

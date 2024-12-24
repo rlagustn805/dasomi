@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import Loading from '../Loading.tsx';
 import { api } from '../../services/api.tsx';
 import axios from 'axios';
-import TermsModal from '../mdoal/TermsModal.tsx';
+import TermsModal from '../modal/TermsModal.tsx';
 
 interface Step3rops {
     setAuthStep: (value: boolean) => void;

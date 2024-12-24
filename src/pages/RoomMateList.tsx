@@ -248,9 +248,15 @@ export default function RoomMateList() {
                     <p className="text-white">
                         등록된 룸메이트 리스트가 없어요!
                     </p>
-                    <YellowButton onClick={() => navigate('/roommate')}>
-                        등록하러 가기
-                    </YellowButton>
+                    {token === null ? (
+                        <YellowButton onClick={() => navigate('/login')}>
+                            로그인 후 등록하기
+                        </YellowButton>
+                    ) : (
+                        <YellowButton onClick={() => navigate('/roommate')}>
+                            등록하러 가기
+                        </YellowButton>
+                    )}
                 </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 bg-gray-100 rounded-xl">

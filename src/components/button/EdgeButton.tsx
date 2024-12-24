@@ -5,7 +5,7 @@ interface Props {
     onClick?: () => void;
     children?: ReactNode;
     type?: 'submit' | 'reset' | 'button';
-    disabled?: boolean;
+    disabled?: boolean | any;
 }
 
 export default function EdgeButton({

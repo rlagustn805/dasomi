@@ -39,6 +39,12 @@ export default function Footer() {
                 >
                     회원가입
                 </p>
+                <p
+                    className="cursor-pointer hover:underline"
+                    onClick={() => navigate('/help')}
+                >
+                    이용안내
+                </p>
             </div>
             <div className="grid grid-cols-2 gap-1">
                 {dormitorys.map((dormitory, index) => (
