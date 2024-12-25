@@ -259,171 +259,174 @@ export default function RoomMateList() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 bg-gray-100 rounded-xl">
-                    {data?.pages.map((page) =>
-                        page.data.map((roommate) => (
-                            <div key={roommate.room_id}>
-                                <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl m-2 relative">
-                                    <div className="flex justify-evenly items-center p-2 shadow-lg">
-                                        <picture>
-                                            <source
-                                                srcSet={`/assets/dcuCharacter/webp/${roommate.dcu_img}.webp`}
-                                                type="image/webp"
-                                            />
-                                            <source
-                                                srcSet={`/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
-                                                type="image/jpeg"
-                                            />
-                                            <img
-                                                src={`/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
-                                                width={80}
-                                            />
-                                        </picture>
-                                        <div className="p-2">
-                                            {/* <p className="text-md bg-green-500 inline-block p-1 rounded-xl text-white"> */}
-                                            <p className="text-green-700">
-                                                {roommate.nickname}
-                                            </p>
-                                            <p className="text-sm">
-                                                {roommate.department}
-                                            </p>
-                                            <p className="text-sm">
-                                                {roommate.student_id}학번
-                                            </p>
-                                            <p className="text-sm">
-                                                {roommate.mbti}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* <p>⭐{roommate.rating}</p> */}
-
-                                    <div className="grid grid-cols-2 gap-2 p-2 text-sm text-center">
-                                        <p className={hashTagClass}>
-                                            #
-                                            {roommate.gender === 'M'
-                                                ? '남자'
-                                                : '여자'}{' '}
-                                            {roommate.person_room}인실
-                                        </p>
-                                        <p className={hashTagClass}>
-                                            #
-                                            {roommate.friendly === 1
-                                                ? '친해져요'
-                                                : '갠플해요'}
-                                        </p>
-
-                                        <p className={hashTagClass}>
-                                            #
-                                            {roommate.indoor_eating === 1
-                                                ? '실내취식 가능'
-                                                : '실내취식 불가능'}
-                                        </p>
-                                        <p className={hashTagClass}>
-                                            #
-                                            {roommate.cleanliness === 'low'
-                                                ? '덜깔끔이'
-                                                : roommate.cleanliness ===
-                                                  'medium'
-                                                ? '깔끔이'
-                                                : '왕깔끔이'}
-                                        </p>
-                                        <p className={hashTagClass}>
-                                            #잠버릇 {''}
-                                            {roommate.sleeping_habits === 1
-                                                ? '있어요'
-                                                : '없어요'}
-                                        </p>
-                                        <p className={hashTagClass}>
-                                            #흡연{' '}
-                                            {roommate.smoking === 1
-                                                ? '해요'
-                                                : '안해요'}
-                                        </p>
-                                    </div>
-                                    <div className="p-2">
-                                        <p className="text-center">특이사항</p>
-                                        <textarea
-                                            className="resize-none w-full p-1 text-sm rounded-lg overflow-auto bg-gray-100 border-2"
-                                            readOnly
-                                            defaultValue={
-                                                roommate.notes
-                                                    ? roommate.notes
-                                                    : '없어요'
-                                            }
-                                        ></textarea>
-                                    </div>
-                                    <div className="text-center mb-2">
-                                        {token === null ? (
-                                            <EdgeButton
-                                                onClick={() =>
-                                                    navigate('/login')
-                                                }
-                                            >
-                                                로그인
-                                            </EdgeButton>
-                                        ) : decodedInfo?.id ===
-                                          roommate.user_id ? (
-                                            <YellowButton
-                                                onClick={() =>
-                                                    navigate('/roommate')
-                                                }
-                                            >
-                                                수정하기
-                                            </YellowButton>
-                                        ) : decodedInfo?.gender ===
-                                          roommate.gender ? (
-                                            <Link
-                                                to={roommate.talk_link}
-                                                target="_blank"
-                                            >
-                                                <EdgeButton>
-                                                    연락하기
-                                                </EdgeButton>
-                                            </Link>
-                                        ) : (
-                                            <GrayButton>
-                                                성별이 달라요
-                                            </GrayButton>
-                                        )}
-                                    </div>
-                                    {roommate.reservation_status !==
-                                        'available' && (
-                                        <div className="absolute z-2 bg-black text-white bg-opacity-75 w-full h-full cursor-pointer rounded-xl">
-                                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                                <div className="opacity-100 flex flex-col items-center gap-2">
-                                                    <picture>
-                                                        <source
-                                                            srcSet={
-                                                                '/assets/dcuCharacter/webp/dcuFace.webp'
-                                                            }
-                                                            type="image/webp"
-                                                        />
-                                                        <source
-                                                            srcSet={
-                                                                '/assets/dcuCharacter/jpg/dcuFace.jpg'
-                                                            }
-                                                            type="image/jpeg"
-                                                        />
-                                                        <img
-                                                            src="/assets/dcuCharacter/jpg/dcuFace.jpg"
-                                                            alt=""
-                                                        />
-                                                    </picture>
-
-                                                    <p className="">
-                                                        {roommate.reservation_status ===
-                                                        'reserving'
-                                                            ? '매칭중 이에요!'
-                                                            : '매칭완료 했어요!'}
-                                                    </p>
-                                                </div>
+                    {data &&
+                        data?.pages.map((page) =>
+                            page.data.map((roommate) => (
+                                <div key={roommate.room_id}>
+                                    <div className="flex flex-col gap-2 bg-white shadow-md rounded-xl m-2 relative">
+                                        <div className="flex justify-evenly items-center p-2 shadow-lg">
+                                            <picture>
+                                                <source
+                                                    srcSet={`/assets/dcuCharacter/webp/${roommate.dcu_img}.webp`}
+                                                    type="image/webp"
+                                                />
+                                                <source
+                                                    srcSet={`/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
+                                                    type="image/jpeg"
+                                                />
+                                                <img
+                                                    src={`/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
+                                                    width={80}
+                                                />
+                                            </picture>
+                                            <div className="p-2">
+                                                {/* <p className="text-md bg-green-500 inline-block p-1 rounded-xl text-white"> */}
+                                                <p className="text-green-700">
+                                                    {roommate.nickname}
+                                                </p>
+                                                <p className="text-sm">
+                                                    {roommate.department}
+                                                </p>
+                                                <p className="text-sm">
+                                                    {roommate.student_id}학번
+                                                </p>
+                                                <p className="text-sm">
+                                                    {roommate.mbti}
+                                                </p>
                                             </div>
                                         </div>
-                                    )}
+
+                                        {/* <p>⭐{roommate.rating}</p> */}
+
+                                        <div className="grid grid-cols-2 gap-2 p-2 text-sm text-center">
+                                            <p className={hashTagClass}>
+                                                #
+                                                {roommate.gender === 'M'
+                                                    ? '남자'
+                                                    : '여자'}{' '}
+                                                {roommate.person_room}인실
+                                            </p>
+                                            <p className={hashTagClass}>
+                                                #
+                                                {roommate.friendly === 1
+                                                    ? '친해져요'
+                                                    : '갠플해요'}
+                                            </p>
+
+                                            <p className={hashTagClass}>
+                                                #
+                                                {roommate.indoor_eating === 1
+                                                    ? '실내취식 가능'
+                                                    : '실내취식 불가능'}
+                                            </p>
+                                            <p className={hashTagClass}>
+                                                #
+                                                {roommate.cleanliness === 'low'
+                                                    ? '덜깔끔이'
+                                                    : roommate.cleanliness ===
+                                                      'medium'
+                                                    ? '깔끔이'
+                                                    : '왕깔끔이'}
+                                            </p>
+                                            <p className={hashTagClass}>
+                                                #잠버릇 {''}
+                                                {roommate.sleeping_habits === 1
+                                                    ? '있어요'
+                                                    : '없어요'}
+                                            </p>
+                                            <p className={hashTagClass}>
+                                                #흡연{' '}
+                                                {roommate.smoking === 1
+                                                    ? '해요'
+                                                    : '안해요'}
+                                            </p>
+                                        </div>
+                                        <div className="p-2">
+                                            <p className="text-center">
+                                                특이사항
+                                            </p>
+                                            <textarea
+                                                className="resize-none w-full p-1 text-sm rounded-lg overflow-auto bg-gray-100 border-2"
+                                                readOnly
+                                                defaultValue={
+                                                    roommate.notes
+                                                        ? roommate.notes
+                                                        : '없어요'
+                                                }
+                                            ></textarea>
+                                        </div>
+                                        <div className="text-center mb-2">
+                                            {token === null ? (
+                                                <EdgeButton
+                                                    onClick={() =>
+                                                        navigate('/login')
+                                                    }
+                                                >
+                                                    로그인
+                                                </EdgeButton>
+                                            ) : decodedInfo?.id ===
+                                              roommate.user_id ? (
+                                                <YellowButton
+                                                    onClick={() =>
+                                                        navigate('/roommate')
+                                                    }
+                                                >
+                                                    수정하기
+                                                </YellowButton>
+                                            ) : decodedInfo?.gender ===
+                                              roommate.gender ? (
+                                                <Link
+                                                    to={roommate.talk_link}
+                                                    target="_blank"
+                                                >
+                                                    <EdgeButton>
+                                                        연락하기
+                                                    </EdgeButton>
+                                                </Link>
+                                            ) : (
+                                                <GrayButton>
+                                                    성별이 달라요
+                                                </GrayButton>
+                                            )}
+                                        </div>
+                                        {roommate.reservation_status !==
+                                            'available' && (
+                                            <div className="absolute z-2 bg-black text-white bg-opacity-75 w-full h-full cursor-pointer rounded-xl">
+                                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                                    <div className="opacity-100 flex flex-col items-center gap-2">
+                                                        <picture>
+                                                            <source
+                                                                srcSet={
+                                                                    '/assets/dcuCharacter/webp/dcuFace.webp'
+                                                                }
+                                                                type="image/webp"
+                                                            />
+                                                            <source
+                                                                srcSet={
+                                                                    '/assets/dcuCharacter/jpg/dcuFace.jpg'
+                                                                }
+                                                                type="image/jpeg"
+                                                            />
+                                                            <img
+                                                                src="/assets/dcuCharacter/jpg/dcuFace.jpg"
+                                                                alt=""
+                                                            />
+                                                        </picture>
+
+                                                        <p className="">
+                                                            {roommate.reservation_status ===
+                                                            'reserving'
+                                                                ? '매칭중 이에요!'
+                                                                : '매칭완료 했어요!'}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    )}
+                            ))
+                        )}
                 </div>
             )}
 
