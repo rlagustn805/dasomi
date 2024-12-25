@@ -113,15 +113,15 @@ export default function CreateMyRoomMate({
                             <div className="p-2 border-2 border-black rounded-xl">
                                 <picture>
                                     <source
-                                        srcSet={`src/assets/dcuCharacter/webp/${selectedImgId}.webp`}
+                                        srcSet={`/assets/dcuCharacter/webp/${selectedImgId}.webp`}
                                         type="image/webp"
                                     />
                                     <source
-                                        srcSet={`src/assets/dcuCharacter/jpg/${selectedImgId}.jpg`}
+                                        srcSet={`/assets/dcuCharacter/jpg/${selectedImgId}.jpg`}
                                         type="image/jpeg"
                                     />
                                     <img
-                                        src={`src/assets/dcuCharacter/jpg/${selectedImgId}.jpg`}
+                                        src={`/assets/dcuCharacter/jpg/${selectedImgId}.jpg`}
                                         width={100}
                                         className="mb-5"
                                     />

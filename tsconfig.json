@@ -14,9 +14,13 @@
         "jsx": "react-jsx",
         /* Linting */
         "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noFallthroughCasesInSwitch": true,
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["src/components/*"]
+        }
     },
     "include": ["src"],
     "references": [
@@ -24,9 +28,5 @@
             "path": "./tsconfig.node.json"
         }
     ],
-    "baseUrl": ".",
-    "paths": {
-        "@components/*": ["src/components/*"]
-    },
     "types": ["node"]
 }

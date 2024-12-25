@@ -232,16 +232,16 @@ export default function RoomMateList() {
                 <div className="bg-green-700 min-h-[30vh] rounded-lg flex flex-col gap-2 items-center justify-center">
                     <picture>
                         <source
-                            srcSet="/src/assets/dcuCharacter/webp/dcuFace.webp"
+                            srcSet="/assets/dcuCharacter/webp/dcuFace.webp"
                             type="image/webp"
                         />
                     </picture>
                     <source
-                        srcSet="/src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                        srcSet="/assets/dcuCharacter/jpg/dcuFace.jpg"
                         type="image/jpeg"
                     />
                     <img
-                        src="/src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                        src="/assets/dcuCharacter/jpg/dcuFace.jpg"
                         width={80}
                     />
                     <p className="text-white">
@@ -266,15 +266,15 @@ export default function RoomMateList() {
                                     <div className="flex justify-evenly items-center p-2 shadow-lg">
                                         <picture>
                                             <source
-                                                srcSet={`/src/assets/dcuCharacter/webp/${roommate.dcu_img}.webp`}
+                                                srcSet={`/assets/dcuCharacter/webp/${roommate.dcu_img}.webp`}
                                                 type="image/webp"
                                             />
                                             <source
-                                                srcSet={`/src/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
+                                                srcSet={`/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
                                                 type="image/jpeg"
                                             />
                                             <img
-                                                src={`/src/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
+                                                src={`/assets/dcuCharacter/jpg/${roommate.dcu_img}.jpg`}
                                                 width={80}
                                             />
                                         </picture>
@@ -394,18 +394,18 @@ export default function RoomMateList() {
                                                     <picture>
                                                         <source
                                                             srcSet={
-                                                                '/src/assets/dcuCharacter/webp/dcuFace.webp'
+                                                                '/assets/dcuCharacter/webp/dcuFace.webp'
                                                             }
                                                             type="image/webp"
                                                         />
                                                         <source
                                                             srcSet={
-                                                                '/src/assets/dcuCharacter/jpg/dcuFace.jpg'
+                                                                '/assets/dcuCharacter/jpg/dcuFace.jpg'
                                                             }
                                                             type="image/jpeg"
                                                         />
                                                         <img
-                                                            src="/src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                                                            src="/assets/dcuCharacter/jpg/dcuFace.jpg"
                                                             alt=""
                                                         />
                                                     </picture>

@@ -101,16 +101,16 @@ export default function GetMyRoomMate() {
                 <div className="bg-green-700 min-h-[30vh] rounded-lg flex flex-col gap-2 items-center justify-center">
                     <picture>
                         <source
-                            srcSet="src/assets/dcuCharacter/webp/dcuFace.webp"
+                            srcSet="/assets/dcuCharacter/webp/dcuFace.webp"
                             type="image/webp"
                         />
                     </picture>
                     <source
-                        srcSet="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                        srcSet="/assets/dcuCharacter/jpg/dcuFace.jpg"
                         type="image/jpeg"
                     />
                     <img
-                        src="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                        src="/assets/dcuCharacter/jpg/dcuFace.jpg"
                         width={80}
                     />
                     <p className="text-white">
@@ -159,15 +159,15 @@ export default function GetMyRoomMate() {
                             />
                             <picture>
                                 <source
-                                    srcSet={`src/assets/dcuCharacter/webp/${roomMate.dcu_img}.webp`}
+                                    srcSet={`/assets/dcuCharacter/webp/${roomMate.dcu_img}.webp`}
                                     type="image/webp"
                                 />
                                 <source
-                                    srcSet={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
+                                    srcSet={`/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
                                     type="image/jpeg"
                                 />
                                 <img
-                                    src={`src/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
+                                    src={`/assets/dcuCharacter/jpg/${roomMate.dcu_img}.jpg`}
                                     width={100}
                                     className="mb-5 m-auto min-h-28"
                                 />

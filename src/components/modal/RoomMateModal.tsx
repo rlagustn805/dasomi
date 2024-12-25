@@ -1,4 +1,3 @@
-import ReactModal from 'react-modal';
 import BaseModal from './BaseModal';
 import CreateMyRoomMate from '../myRoomMateGroup/CreateMyRoomMate';
 import { RoomMateData } from '../myRoomMateGroup/CreateMyRoomMate';

@@ -154,7 +154,7 @@ export default function UserCount() {
                     </span>
                 </div>
                 <div className="border shadow-lg p-6 text-center rounded-xl">
-                    <p>지난 달 보다</p>
+                    <p>전월 보다</p>
                     <span className="text-lg">
                         {users?.stats?.monthlyIncrease}명
                     </span>

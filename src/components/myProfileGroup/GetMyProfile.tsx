@@ -62,15 +62,15 @@ export default function GetMyProfile() {
                         <div className="ml-7">
                             <picture>
                                 <source
-                                    srcSet="src\assets\dcuCharacter\webp\dcuFace.webp"
+                                    srcSet="/assets/dcuCharacter/webp/dcuFace.webp"
                                     type="image/webp"
                                 />
                                 <source
-                                    srcSet="src\assets\dcuCharacter\jpg\dcuFace.jpg"
+                                    srcSet="/assets/dcuCharacter/jpg/dcuFace.jpg"
                                     type="image/jpg"
                                 />
                                 <img
-                                    src="src\assets\dcuCharacter\jpg\dcuFace.jpg"
+                                    src="/assets/dcuCharacter/jpg/dcuFace.jpg"
                                     width={100}
                                 />
                             </picture>

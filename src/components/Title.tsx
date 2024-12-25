@@ -2,16 +2,10 @@ export default function Title() {
     return (
         <div className="relative">
             <picture>
-                <source
-                    srcSet="src/assets/images/title.webp"
-                    type="image/webp"
-                />
-                <source
-                    srcSet="src/assets/images/title.jpg"
-                    type="image/jpeg"
-                />
+                <source srcSet="/assets/images/title.webp" type="image/webp" />
+                <source srcSet="/assets/images/title.jpg" type="image/jpeg" />
                 <img
-                    src="src/assets/images/title.jpg"
+                    src="/assets/images/title.jpg"
                     className="brightness-75 rounded-xl h-[400px] object-cover w-full"
                 />
             </picture>

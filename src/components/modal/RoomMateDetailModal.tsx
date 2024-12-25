@@ -1,6 +1,4 @@
-import ReactModal from 'react-modal';
 import BaseModal from './BaseModal';
-import { useQuery } from '@tanstack/react-query';
 import { api } from '../../services/api';
 import axios from 'axios';
 import { useEffect, useState } from 'react';

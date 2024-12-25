@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import Modal from 'react-modal';
 import RedButton from '../button/RedButton';
 import './BaseRoomMateModal.css';

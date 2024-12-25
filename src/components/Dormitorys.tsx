@@ -14,44 +14,44 @@ export default function Domitorys() {
         {
             id: 111,
             name: '참인재관',
-            jpgSrc: 'src/assets/dormitorys/chaminjae.jpg',
-            webpSrc: 'src/assets/dormitorys/chaminjae.webp',
+            jpgSrc: '/assets/dormitorys/chaminjae.jpg',
+            webpSrc: '/assets/dormitorys/chaminjae.webp',
         },
         {
             id: 222,
             name: '아마레관',
-            jpgSrc: 'src/assets/dormitorys/amare.jpg',
-            webpSrc: 'src/assets/dormitorys/amare.webp',
+            jpgSrc: '/assets/dormitorys/amare.jpg',
+            webpSrc: '/assets/dormitorys/amare.webp',
         },
         {
             id: 333,
             name: '예지관',
-            jpgSrc: 'src/assets/dormitorys/remain.jpg',
-            webpSrc: 'src/assets/dormitorys/remain.webp',
+            jpgSrc: '/assets/dormitorys/remain.jpg',
+            webpSrc: '/assets/dormitorys/remain.webp',
         },
         {
             id: 444,
             name: '세르비레관',
-            jpgSrc: 'src/assets/dormitorys/servire.jpg',
-            webpSrc: 'src/assets/dormitorys/servire.webp',
+            jpgSrc: '/assets/dormitorys/servire.jpg',
+            webpSrc: '/assets/dormitorys/servire.webp',
         },
         {
             id: 555,
             name: '효성관',
-            jpgSrc: 'src/assets/dormitorys/remain.jpg',
-            webpSrc: 'src/assets/dormitorys/remain.webp',
+            jpgSrc: '/assets/dormitorys/remain.jpg',
+            webpSrc: '/assets/dormitorys/remain.webp',
         },
         {
             id: 666,
             name: '성김대건관',
-            jpgSrc: 'src/assets/dormitorys/remain.jpg',
-            webpSrc: 'src/assets/dormitorys/remain.webp',
+            jpgSrc: '/assets/dormitorys/remain.jpg',
+            webpSrc: '/assets/dormitorys/remain.webp',
         },
         {
             id: 777,
             name: '다솜관',
-            jpgSrc: 'src/assets/dormitorys/remain.jpg',
-            webpSrc: 'src/assets/dormitorys/remain.webp',
+            jpgSrc: '/assets/dormitorys/remain.jpg',
+            webpSrc: '/assets/dormitorys/remain.webp',
         },
     ];
 
@@ -90,15 +90,15 @@ export default function Domitorys() {
                 >
                     <picture>
                         <source
-                            srcSet="src/assets/dormitorys/test.webp"
+                            srcSet="/assets/dormitorys/test.webp"
                             type="image/webp"
                         />
                         <source
-                            srcSet="src/assets/dormitorys/test.jpg"
+                            srcSet="/assets/dormitorys/test.jpg"
                             type="image/jpeg"
                         />
                         <img
-                            src="src/assets/dormitorys/test.jpg"
+                            src="/assets/dormitorys/test.jpg"
                             className="w-full h-full object-cover brightness-90 hover:brightness-75 rounded-lg cursor-pointer"
                         />
                     </picture>
