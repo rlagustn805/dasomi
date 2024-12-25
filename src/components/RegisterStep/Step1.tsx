@@ -77,7 +77,6 @@ export default function Step1({ setAuthStep }: Step1Props) {
                 status: true,
             }));
             trigger();
-            console.log(res.data.message);
         } catch (err) {
             console.error(err); // or Axios 에러 변경
         } finally {

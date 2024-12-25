@@ -94,7 +94,6 @@ export default function GetMyRoomMate() {
             }
         },
     });
-    console.log(isLoading);
 
     if (isError && error instanceof Error) {
         if (axios.isAxiosError(error) && error.response?.status === 404) {

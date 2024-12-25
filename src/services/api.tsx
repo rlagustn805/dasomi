@@ -14,7 +14,6 @@ api.interceptors.request.use(
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
 
-        console.log('요청 인터셉터 실행');
         return config; // 변경된 설정 반환
     },
     (error) => {
@@ -47,7 +46,6 @@ api.interceptors.response.use(
                     {},
                     { withCredentials: true } // 쿠키 포함 요청
                 );
-                console.log('응답 인터셉터 실행');
                 // 새로 발급받은 액세스 토큰을 로컬 스토리지에 저장
                 localStorage.setItem('authToken', data.accessToken);
 

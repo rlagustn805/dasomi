@@ -85,25 +85,25 @@ export default function Domitorys() {
                     </div>
                 ))}
                 <div
-                    className="h-36 relative md:h-52 border-2 border-black rounded-lg bg-green-700 cursor-pointer hover:bg-green-600"
+                    className="h-36 relative md:h-52"
                     onClick={() => navigate('/help')}
                 >
                     <picture>
                         <source
-                            srcSet="src/assets/dcuCharacter/webp/dcuFace.webp"
+                            srcSet="src/assets/dormitorys/test.webp"
                             type="image/webp"
                         />
                         <source
-                            srcSet="src/assets/dcuCharacter/jpg/dcuFace.jpg"
+                            srcSet="src/assets/dormitorys/test.jpg"
                             type="image/jpeg"
                         />
                         <img
-                            src="src/assets/dcuCharacter/jpg/dcuFace.jpg"
-                            className="w-full h-full object-cover rounded-lg"
+                            src="src/assets/dormitorys/test.jpg"
+                            className="w-full h-full object-cover brightness-90 hover:brightness-75 rounded-lg cursor-pointer"
                         />
                     </picture>
-                    <p className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-2 text-lg w-full text-center">
-                        도와주세요!!
+                    <p className="text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-2 text-lg">
+                        이용 안내
                     </p>
                 </div>
             </div>

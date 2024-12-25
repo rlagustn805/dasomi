@@ -17,6 +17,7 @@ import MyRoomMate from './pages/MyRoomMate';
 import RoomMateList from './pages/RoomMateList';
 import NotFound from './pages/NotFound';
 import Help from './pages/Help';
+import Admin from './pages/Admin';
 
 // Context
 import { AuthProvider } from './contexts/AuthContext';
@@ -51,6 +52,10 @@ function App() {
                                 element={<RoomMateList />}
                             ></Route>
                             <Route path="/help" element={<Help />}></Route>
+                            <Route
+                                path="/manage-admin"
+                                element={<Admin />}
+                            ></Route>
                             <Route path="/*" element={<NotFound />} />
                         </Routes>
                     </div>

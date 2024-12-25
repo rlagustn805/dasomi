@@ -59,8 +59,6 @@ export default function CreateMyRoomMate({
         },
     });
 
-    console.log(selectedRoom);
-
     const [imgModalOpen, setImgModalOpen] = useState(false);
     const [selectedImgId, setSelectedImgId] = useState<string>(
         getValues('dcu_img') || 'dcu1'

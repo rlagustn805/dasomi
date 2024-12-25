@@ -19,7 +19,7 @@ export default function Footer() {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-green-800 p-4 mt-16 grid grid-cols-2 text-white rounded-lg">
+        <div className="bg-green-800 p-4 mt-16 grid grid-cols-2 text-white rounded-lg text-sm">
             <div className="flex flex-col gap-1">
                 <p
                     className="cursor-pointer hover:underline"

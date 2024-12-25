@@ -170,7 +170,6 @@ export default function RoomMateList() {
 
         try {
             const res = await api.get('api/roommate/dormitory', { params });
-            console.log(res.data);
             setTotalCount(res.data.totalCount);
             return res.data;
         } catch (err) {

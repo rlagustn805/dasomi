@@ -3,11 +3,17 @@ import BaseButton from './button/BaseButton';
 import GreenButton from './button/GreenButton';
 import { useAuth } from '../hooks/useAuth';
 import { IoMdMenu } from 'react-icons/io';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import decodeToken from './utils/decodeToken';
+
+interface TokenInfo {
+    admin: number;
+}
 
 export default function Header() {
     const { token, logout } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [tokenInfo, setTokenInfo] = useState<TokenInfo | null>(null);
 
     const navigate = useNavigate();
 
@@ -20,6 +26,16 @@ export default function Header() {
         setMenuOpen(false);
     };
 
+    useEffect(() => {
+        if (token) {
+            setTokenInfo(decodeToken(token));
+        } else {
+            setTokenInfo(null);
+        }
+
+        setTokenInfo(decodeToken(token));
+    }, [token]);
+
     const menuItems = [
         { text: '로그아웃', onclick: () => handleMenuClick(logout) },
         {
@@ -31,6 +47,13 @@ export default function Header() {
             onclick: () => handleMenuClick(() => navigate('/roommate')),
         },
     ];
+
+    if (tokenInfo?.admin === 1) {
+        menuItems.push({
+            text: '관리자',
+            onclick: () => handleMenuClick(() => navigate('/manage-admin')),
+        });
+    }
 
     return (
         <div className="fixed h-[70px] inset-x-4 md:inset-x-14 lg:inset-x-28 xl:inset-x-44 2xl:inset-x-72 bg-white z-10">
@@ -58,7 +81,7 @@ export default function Header() {
                         )}
                     </div>
                 ) : (
-                    <Link to={'/login'}>
+                    <Link to={'/login'} className="text-sm">
                         <BaseButton>로그인</BaseButton>
                     </Link>
                 )}
