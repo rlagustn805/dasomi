@@ -6,6 +6,7 @@ import Loading from '../../Loading';
 import { IoLockClosedSharp, IoLockOpen } from 'react-icons/io5';
 import axios from 'axios';
 import { api } from '../../../services/api';
+import { useAuth } from 'src/hooks/useAuth';
 
 interface EditPasswordData {
     currentPassword: string;
@@ -14,6 +15,8 @@ interface EditPasswordData {
 }
 
 export default function EditPassword() {
+    const { logout } = useAuth();
+
     const {
         control,
         getValues,
@@ -43,6 +46,7 @@ export default function EditPassword() {
         try {
             const res = await api.post('api/my/edit/password', data);
             alert(res.data.message);
+            logout();
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 setErrorMsg(err.response?.data.message);
