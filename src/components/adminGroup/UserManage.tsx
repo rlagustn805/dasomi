@@ -214,7 +214,7 @@ export default function UserCount() {
                                 {user.is_admin ? '어드민' : '유저'}
                             </span>
 
-                            {!user.is_admin ? (
+                            {user.is_admin ? (
                                 <span className="flex-1 text-center">.</span>
                             ) : user.is_active ? (
                                 <div className="flex-1 text-center">
