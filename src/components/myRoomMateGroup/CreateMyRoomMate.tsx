@@ -129,7 +129,7 @@ export default function CreateMyRoomMate({
                                 <EdgeButton
                                     onClick={() => setImgModalOpen(true)}
                                 >
-                                    이미지 등록
+                                    이미지 변경
                                 </EdgeButton>
                             </div>
                         </div>
