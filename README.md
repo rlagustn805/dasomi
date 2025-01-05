@@ -101,8 +101,40 @@
 <br/>
 <br/>
 
+# 5. API Specification (API 명세서)
+| **번호** | **API 설명**              | **URL**                             | **Method**  |
+|----------|--------------------------|-------------------------------------|------------|
+| 1.1      | 회원가입                 | `/api/users/register`              | `POST`     |
+| 1.2      | 닉네임 중복 확인         | `/api/users/check-nickname`        | `GET`      |
+| 1.3      | 비밀번호 확인            | `/api/users/check-password`        | `POST`     |
+| 1.4      | 이메일 인증 발송         | `/api/users/email/send`            | `POST`     |
+| 1.5      | 이메일 인증 확인         | `/api/users/email/verify`          | `POST`     |
+| 1.6      | 로그인                   | `/api/users/login`                 | `POST`     |
+| 1.7      | 액세스 토큰 갱신         | `/api/users/refresh`               | `POST`     |
+| 1.8      | 회원 탈퇴                | `/api/users/withdraw`              | `POST`     |
+| 2.1      | 나의 룸메이트 정보 생성  | `/api/roommate/me`                 | `POST`     |
+| 2.2      | 나의 룸메이트 정보 조회  | `/api/roommate/me`                 | `GET`      |
+| 2.3      | 나의 룸메이트 정보 삭제  | `/api/roommate/me`                 | `DELETE`   |
+| 2.4      | 나의 룸메이트 정보 수정  | `/api/roommate/me`                 | `PUT`      |
+| 2.5      | 예약 상태 수정           | `/api/roommate/reservation/edit`   | `PUT`      |
+| 2.6      | 모든 룸메이트 정보 조회  | `/api/roommate/dormitory`          | `GET`      |
+| 2.7      | 룸메이트 상세 조회       | `/api/roommate/detail/:room_id`    | `GET`      |
+| 2.8      | 룸메이트 매칭 수 조회    | `/api/roommate/stats`              | `GET`      |
+| 3.1      | 프로필 조회              | `/api/my/profile`                  | `GET`      |
+| 3.2      | 비밀번호 수정            | `/api/my/edit/password`            | `POST`     |
+| 3.3      | 닉네임 수정              | `/api/my/edit/nickname`            | `POST`     |
+| 3.4      | MBTI 수정                | `/api/my/edit/mbti`                | `POST`     |
+| 3.5      | 학과 수정                | `/api/my/edit/department`          | `POST`     |
+| 4.1      | ID 찾기                  | `/api/forgot/id`                   | `POST`     |
+| 4.2      | 비밀번호 찾기            | `/api/forgot/pw`                   | `POST`     |
+| 5.1      | 전체 회원 리스트 조회     | `/api/admin/users`                 | `GET`      |
+| 5.2      | 특정 회원 일시 정지      | `/api/admin/users/:userId/suspend` | `PATCH`    |
+| 5.3      | 특정 회원 활성화         | `/api/admin/users/:userId/active`  | `PATCH`    |
+| 5.4      | 특정 회원 삭제           | `/api/admin/users/:userId`         | `DELETE`   |
 
-# 5. Technology Stack (기술 스택)
+
+
+# 6. Technology Stack (기술 스택)
 |  |  |
 |-----------------|-----------------|
 | HTML5    |<img src="https://github.com/user-attachments/assets/2e122e74-a28b-4ce7-aff6-382959216d31" alt="HTML5" width="100">| 
