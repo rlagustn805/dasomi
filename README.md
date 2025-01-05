@@ -1,4 +1,4 @@
-<a href="https://table-for-you.com/" target="_blank">
+<a href="https://dasomi.vercel.app/" target="_blank">
 <img src="https://github.com/user-attachments/assets/f388d990-11a9-4c7b-979f-71fc2a09b66f" alt="배너" width="100%"/>
 </a>
 
