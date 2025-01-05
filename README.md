@@ -17,7 +17,7 @@
 
 # 1. Project Overview (프로젝트 개요)
 - 프로젝트 이름: 다솜이
-- 프로젝트 설명: 대학교 기숙사 룸메이트 매칭 서비스
+- 프로젝트 설명: 대학교 기숙사 룸메이트 매칭 서비스 
 
 <br/>
 <br/>
@@ -29,7 +29,7 @@
 <br/>
 <img src="https://github.com/user-attachments/assets/1de3f72b-1ad2-481f-9980-2b3e4221f84d" alt="배너" width="50%"/>
 <br/>
-따라서 보다 성향이 잘 맞는 룸메이트를 쉽게 찾고 구할 순 없을까? 하는 생각을 시작으로 서비스를 개발하였습니다. 
+따라서 보다 성향이 잘 맞는 룸메이트를 쉽게 찾고 구할 순 없을까? 하는 생각을 시작으로 1인 서비스를 개발하였습니다. 
 
 <br/>
 <br/>
@@ -109,7 +109,9 @@
 | CSS3    |   <img src="https://github.com/user-attachments/assets/c531b03d-55a3-40bf-9195-9ff8c4688f13" alt="CSS3" width="100">|
 | TypeScript    |  <img src="https://github.com/user-attachments/assets/ccf7fc4d-c957-47f0-8f54-46a610e93087" alt="typescript" width="100"> |
 | React    |  <img src="https://github.com/user-attachments/assets/e3b49dbb-981b-4804-acf9-012c854a2fd2" alt="React" width="100"> | 18.3.1    |
+| Node.js    |  <img src="https://github.com/user-attachments/assets/8f58ed3b-acd3-419e-9963-bcc9bc6ed08a" alt="Node.js" width="100"> | 18.3.1    |
 | Tailwind CSS    |  <img src="https://github.com/user-attachments/assets/650e9e6c-783d-474d-aadb-170ccbb57b3d" alt="React" width="100"> | 18.3.1    |
+
 
 
 <br/>
