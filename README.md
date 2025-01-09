@@ -1,7 +1,10 @@
-<a href="https://dasomi.vercel.app/" target="_blank">
 <img src="https://github.com/user-attachments/assets/f388d990-11a9-4c7b-979f-71fc2a09b66f" alt="배너" width="100%"/>
 </a>
+<br/>
+<br/>
 
+<img src="https://github.com/user-attachments/assets/364a76f3-bf7b-433e-96f3-0970a72ef174" alt="배너" width="100%"/>
+</a>
 
 <br/>
 <br/>
@@ -101,7 +104,33 @@
 <br/>
 <br/>
 
-# 5. API Specification (API 명세서)
+# 5. Improvements (개선사항)
+  1. Table For You 프로젝트를 진행하면서 이미지 용량이 커 렌더링이 지연되는 현상이 있었습니다. <br/>
+   이를 해결 하기 위해 이미지를 webp (압축된 포맷)으로 변경하는 방법을 알게 되었고 적용 후 이미지 최적화를 진행하였습니다. <br/><br/>
+  <img src="https://github.com/user-attachments/assets/32cc2dc0-7806-4543-ba0e-409df6557204" width="100%"/>
+  <img src="https://github.com/user-attachments/assets/0eccc06d-65b2-4a3e-a2b0-45a6c00d43c3" width="100%"/>  <br/><br/>
+
+  2. UX/UI 개선
+  <img src="https://github.com/user-attachments/assets/6f93faf8-1779-4593-a927-32947cf393cc" width="100%"/>
+  <img src="https://github.com/user-attachments/assets/da1483a1-295c-4ac5-bb20-f730da73c3ca" width="100%"/> <br/><br/>
+  초기에 룸메이트 리스트 목록을 보여줄 때, 각 아이템마다 간략하게 -> 클릭시 -> 자세하게로 개발하고자 하였습니다. <br/>
+  이유는 상세 내용 (흡연 여부, 실내 취식 등...) 리스트 내용이 많아 한 눈에 보기 어려울 것 같아서 입니다. <br/>
+  그런데 사용자 입장에서 두번씩 얘가 흡연을 하는지 등 팝업 통해 한번 더 확인하는 과정이 필요할까? <br/><br/>
+  <img src="https://github.com/user-attachments/assets/6029c349-ba0d-4d87-b604-fca9a1d7b724" width="100%"/>
+ <br/><br/>
+  그래서 다음과 같이 변경하였습니다. 여기서 주변 지인분들께 UI에 개선할 점이 없는지 피드백을 받은 결과, <br/>
+  1. 각 리스트 마다 구분이 안간다. <br/>
+  2. 상세 내용이 한 눈에 들어오지 않는다. <br/>
+  의견을 받은 후, <br/><br/>
+  <img src="https://github.com/user-attachments/assets/5ccbe39b-3bdd-40bc-bb85-8767ce92f39e" width="50%"/>  <br/><br/>
+
+  다음 개선 사항을 거치면서  <br/><br/>
+  <img src="https://github.com/user-attachments/assets/bd06e933-917c-4187-84b1-f113bd67248f" width="50%"/>  <br/><br/>
+  최종적으로 위 사진의 결과로 주변 반응이 좋아 최종 결정하였습니다.
+<br/>
+<br/>
+
+# 6. API Specification (API 명세서)
 | **번호** | **API 설명**              | **URL**                             | **Method**  |
 |----------|--------------------------|-------------------------------------|------------|
 | 1.1      | 회원가입                 | `/api/users/register`              | `POST`     |
@@ -134,7 +163,7 @@
 
 
 
-# 6. Technology Stack (기술 스택)
+# 7. Technology Stack (기술 스택)
 |  |  |
 |-----------------|-----------------|
 | HTML5    |<img src="https://github.com/user-attachments/assets/2e122e74-a28b-4ce7-aff6-382959216d31" alt="HTML5" width="100">| 
